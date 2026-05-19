@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Каталог — ToolPrime</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-950:#05152e;--blue-900:#0a2247;--blue-800:#0d3068;
+      --blue-700:#1148a0;--blue-600:#1a6bdc;--blue-500:#3a87f0;
+      --blue-400:#60a5fa;--blue-100:#dbeafe;--blue-50:#eff6ff;
+      --gray-900:#111827;--gray-700:#374151;--gray-500:#6b7280;
+      --gray-300:#d1d5db;--gray-200:#e5e7eb;--gray-100:#f3f4f6;
+      --white:#ffffff;--orange:#f97316;--green:#16a34a;--red:#dc2626;
+      --r-sm:6px;--r-md:10px;--r-lg:14px;--max:1400px;--sidebar:264px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Manrope',system-ui,sans-serif;background:var(--gray-100);color:var(--gray-900);font-size:14px}
+    a{color:var(--blue-600);text-decoration:none}
+    button{font-family:inherit;cursor:pointer}
+
+    /* HEADER */
+    header{background:var(--blue-900);position:sticky;top:0;z-index:200;box-shadow:0 4px 24px rgba(0,0,0,.35)}
+    .header-main{max-width:var(--max);margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px}
+    .logo-wrap{display:flex;align-items:center;gap:10px;flex-shrink:0}
+    .logo-stripes{display:flex;align-items:flex-end;gap:3px;height:32px}
+    .logo-stripes span{display:block;width:6px;background:var(--blue-500);border-radius:2px}
+    .logo-stripes span:nth-child(1){height:16px}
+    .logo-stripes span:nth-child(2){height:22px}
+    .logo-stripes span:nth-child(3){height:30px}
+    .logo-text{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.03em}
+    .logo-text em{color:var(--blue-400);font-style:normal}
+    .search-wrap{flex:1;max-width:560px;position:relative}
+    .search-wrap input{width:100%;height:44px;padding:0 50px 0 16px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.15);border-radius:var(--r-lg);font-size:14px;font-weight:500;color:#fff;outline:none}
+    .search-wrap input::placeholder{color:rgba(255,255,255,.38)}
+    .search-btn{position:absolute;right:6px;top:6px;width:32px;height:32px;background:var(--blue-600);border:none;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff}
+    .search-btn svg{width:16px;height:16px}
+    .cart-btn{display:flex;align-items:center;gap:8px;padding:10px 20px;background:var(--blue-600);border:none;border-radius:var(--r-md);color:#fff;font-size:14px;font-weight:700;margin-left:auto}
+    .cart-btn:hover{background:var(--blue-500)}
+
+    /* LAYOUT */
+    .page-wrap{max-width:var(--max);margin:0 auto;padding:20px;display:flex;gap:20px;align-items:flex-start}
+
+    /* SIDEBAR */
+    .sidebar{width:var(--sidebar);flex-shrink:0;background:var(--white);border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--gray-200)}
+    .sb-section{border-bottom:1px solid var(--gray-200);padding:16px}
+    .sb-section:last-child{border-bottom:none}
+    .sb-title{font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:12px;text-transform:uppercase;letter-spacing:.04em}
+    .sb-search{width:100%;padding:8px 10px;border:1px solid var(--gray-300);border-radius:var(--r-sm);font-size:13px;outline:none;margin-bottom:10px}
+    .sb-search:focus{border-color:var(--blue-500)}
+    .brand-list{max-height:220px;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
+    .brand-row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:var(--r-sm);cursor:pointer;transition:background .1s}
+    .brand-row:hover{background:var(--blue-50)}
+    .brand-row.selected{background:var(--blue-50)}
+    .brand-cb{width:16px;height:16px;border:2px solid var(--gray-300);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+    .brand-cb.on{background:var(--blue-600);border-color:var(--blue-600)}
+    .brand-cb.on::after{content:'✓';color:#fff;font-size:10px;font-weight:700}
+    .brand-name{font-size:13px;color:var(--gray-700)}
+    .price-inputs{display:flex;gap:8px;align-items:center}
+    .price-input{width:100%;padding:7px 10px;border:1px solid var(--gray-300);border-radius:var(--r-sm);font-size:13px;outline:none}
+    .price-input:focus{border-color:var(--blue-500)}
+    .stock-toggle{display:flex;align-items:center;gap:8px;cursor:pointer}
+    .toggle-track{width:36px;height:20px;background:var(--gray-300);border-radius:10px;position:relative;transition:background .2s;flex-shrink:0}
+    .toggle-track.on{background:var(--blue-600)}
+    .toggle-thumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .2s}
+    .toggle-track.on .toggle-thumb{transform:translateX(16px)}
+    .sb-apply{width:100%;padding:10px;background:var(--blue-600);color:#fff;border:none;border-radius:var(--r-md);font-size:14px;font-weight:700;margin-top:4px}
+    .sb-apply:hover{background:var(--blue-500)}
+    .sb-reset{width:100%;padding:8px;background:none;color:var(--gray-500);border:1px solid var(--gray-300);border-radius:var(--r-md);font-size:13px;margin-top:6px}
+    .sb-reset:hover{border-color:var(--gray-500);color:var(--gray-700)}
+
+    /* MAIN */
+    .catalog-main{flex:1;min-width:0}
+    .catalog-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:16px;background:var(--white);padding:12px 16px;border-radius:var(--r-lg);border:1px solid var(--gray-200)}
+    .toolbar-title{font-size:15px;font-weight:700;color:var(--gray-900)}
+    .toolbar-count{font-size:13px;color:var(--gray-500);margin-left:4px}
+    .toolbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+    .sort-select{padding:7px 10px;border:1px solid var(--gray-300);border-radius:var(--r-sm);font-size:13px;outline:none;background:#fff}
+    .active-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+    .filter-tag{display:flex;align-items:center;gap:4px;padding:4px 10px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:20px;font-size:12px;color:var(--blue-700);font-weight:600}
+    .filter-tag a{color:var(--blue-500);font-size:14px;line-height:1;text-decoration:none;margin-left:2px}
+
+    /* PRODUCT GRID */
+    .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+    .product-card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--gray-200);overflow:hidden;transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column}
+    .product-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.1);transform:translateY(-2px)}
+    .pc-img-wrap{position:relative;aspect-ratio:1;background:var(--gray-100);display:flex;align-items:center;justify-content:center;font-size:48px}
+    .pc-badge{position:absolute;top:8px;left:8px;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:800;letter-spacing:.04em}
+    .badge-hit{background:#fef3c7;color:#92400e}
+    .badge-new{background:#d1fae5;color:#065f46}
+    .pc-disc{position:absolute;top:8px;right:8px;background:var(--red);color:#fff;font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px}
+    .pc-wish{position:absolute;bottom:8px;right:8px;width:28px;height:28px;background:rgba(255,255,255,.9);border:1px solid var(--gray-200);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gray-500)}
+    .pc-wish svg{width:14px;height:14px}
+    .pc-wish.on{color:var(--red);border-color:var(--red)}
+    .pc-body{padding:12px;display:flex;flex-direction:column;flex:1}
+    .pc-brand{font-size:11px;font-weight:700;color:var(--blue-600);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+    .pc-name{font-size:13px;font-weight:600;color:var(--gray-900);line-height:1.4;flex:1;margin-bottom:10px}
+    .pc-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:auto}
+    .pc-price-wrap{display:flex;flex-direction:column}
+    .pc-price-old{font-size:11px;color:var(--gray-500);text-decoration:line-through}
+    .pc-price{font-size:18px;font-weight:800;color:var(--gray-900);line-height:1}
+    .pc-price sub{font-size:12px;font-weight:600;vertical-align:baseline}
+    .pc-add{padding:7px 12px;background:var(--blue-600);color:#fff;border:none;border-radius:var(--r-sm);font-size:12px;font-weight:700;white-space:nowrap;transition:background .15s}
+    .pc-add:hover{background:var(--blue-500)}
+    .pc-add.in-cart{background:var(--green)}
+    .no-products{text-align:center;padding:60px 20px;color:var(--gray-500)}
+    .no-products h3{font-size:18px;font-weight:700;margin-bottom:8px;color:var(--gray-700)}
+
+    /* CAT PILLS */
+    .cat-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+    .cat-pill{padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1.5px solid var(--gray-300);color:var(--gray-700);background:#fff;cursor:pointer;transition:all .15s}
+    .cat-pill:hover{border-color:var(--blue-500);color:var(--blue-600)}
+    .cat-pill.active{background:var(--blue-600);border-color:var(--blue-600);color:#fff}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-main">
+    <a href="/" class="logo-wrap">
+      <div class="logo-stripes"><span></span><span></span><span></span></div>
+      <div><div class="logo-text">Tool<em>Prime</em></div></div>
+    </a>
+    <form class="search-wrap" action="/catalog" method="get">
+      {% if selected_category %}<input type="hidden" name="category" value="{{ selected_category }}">{% endif %}
+      <input name="q" type="text" placeholder="Найти товар..." value="{{ q or '' }}">
+      <button class="search-btn" type="submit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+    </form>
+    <a href="/cart" class="cart-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      Корзина
+    </a>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <form id="filterForm" action="/catalog" method="get">
+      {% if q %}<input type="hidden" name="q" value="{{ q }}">{% endif %}
+
+      <div class="sb-section">
+        <div class="sb-title">Категории</div>
+        {% for cat in categories %}
+        <div class="brand-row {% if selected_category == cat.slug %}selected{% endif %}"
+             onclick="selectCategory('{{ cat.slug }}')">
+          <div class="brand-cb {% if selected_category == cat.slug %}on{% endif %}"></div>
+          <span class="brand-name">{{ cat.name }}</span>
+        </div>
+        {% endfor %}
+        <input type="hidden" name="category" id="categoryInput" value="{{ selected_category or '' }}">
+      </div>
+
+      <div class="sb-section">
+        <div class="sb-title">Производитель</div>
+        <input class="sb-search" type="text" placeholder="Поиск бренда..." oninput="filterBrands(this.value)">
+        <div class="brand-list" id="brandList">
+          {% for b in brands %}
+          <div class="brand-row" data-brand="{{ b.name }}" onclick="toggleBrand('{{ b.slug }}', this)">
+            <div class="brand-cb {% if selected_brand and b.slug in selected_brand.split(',') %}on{% endif %}"></div>
+            <span class="brand-name">{{ b.name }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        <input type="hidden" name="brand" id="brandInput" value="{{ selected_brand or '' }}">
+      </div>
+
+      <div class="sb-section">
+        <div class="sb-title">Цена, ₽</div>
+        <div class="price-inputs">
+          <input class="price-input" type="number" name="min_price" placeholder="От" value="{{ min_price or '' }}">
+          <span style="color:var(--gray-500)">—</span>
+          <input class="price-input" type="number" name="max_price" placeholder="До" value="{{ max_price or '' }}">
+        </div>
+      </div>
+
+      <div class="sb-section">
+        <div class="sb-title">Наличие</div>
+        <label class="stock-toggle" onclick="toggleStock()">
+          <div class="toggle-track {% if in_stock %}on{% endif %}" id="stockTrack">
+            <div class="toggle-thumb"></div>
+          </div>
+          <span style="font-size:13px;color:var(--gray-700)">Только в наличии</span>
+        </label>
+        <input type="hidden" name="in_stock" id="stockInput" value="{{ 'true' if in_stock else '' }}">
+      </div>
+
+      <div class="sb-section">
+        <button class="sb-apply" type="submit">Применить фильтры</button>
+        <a href="/catalog"><button class="sb-reset" type="button">Сбросить всё</button></a>
+      </div>
+    </form>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="catalog-main">
+
+    <!-- Category pills -->
+    <div class="cat-pills">
+      <a href="/catalog"><span class="cat-pill {% if not selected_category %}active{% endif %}">Все товары</span></a>
+      {% for cat in categories %}
+      <a href="/catalog?category={{ cat.slug }}">
+        <span class="cat-pill {% if selected_category == cat.slug %}active{% endif %}">{{ cat.name }}</span>
+      </a>
+      {% endfor %}
+    </div>
+
+    <!-- Toolbar -->
+    <div class="catalog-toolbar">
+      <span class="toolbar-title">Каталог</span>
+      <span class="toolbar-count">{{ total }} товаров</span>
+      <div class="toolbar-right">
+        <select class="sort-select">
+          <option>По популярности</option>
+          <option>Сначала дешевле</option>
+          <option>Сначала дороже</option>
+          <option>По новизне</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Active filters -->
+    {% if selected_category or selected_brand or in_stock or min_price or max_price or q %}
+    <div class="active-filters">
+      {% if q %}<span class="filter-tag">Поиск: {{ q }} <a href="/catalog">×</a></span>{% endif %}
+      {% if selected_category %}
+        {% for cat in categories %}{% if cat.slug == selected_category %}
+        <span class="filter-tag">{{ cat.name }} <a href="/catalog">×</a></span>
+        {% endif %}{% endfor %}
+      {% endif %}
+      {% if in_stock %}<span class="filter-tag">В наличии <a href="/catalog">×</a></span>{% endif %}
+      {% if min_price %}<span class="filter-tag">От {{ min_price }} ₽ <a href="/catalog">×</a></span>{% endif %}
+      {% if max_price %}<span class="filter-tag">До {{ max_price }} ₽ <a href="/catalog">×</a></span>{% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Products -->
+    {% if products %}
+    <div class="product-grid">
+      {% for p in products %}
+      <div class="product-card">
+        <div class="pc-img-wrap">
+          🔧
+          {% if p.old_price %}<span class="pc-disc">-{{ ((1 - p.price/p.old_price)*100)|int }}%</span>{% endif %}
+          {% if p.in_stock %}<span class="pc-badge badge-new" style="display:none"></span>{% endif %}
+          <button class="pc-wish" aria-label="В избранное" onclick="this.classList.toggle('on');event.stopPropagation()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+        <div class="pc-body">
+          <div class="pc-brand">{{ p.brand.name if p.brand else '' }}</div>
+          <div class="pc-name">{{ p.name }}</div>
+          <div class="pc-foot">
+            <div class="pc-price-wrap">
+              {% if p.old_price %}<div class="pc-price-old">{{ "{:,.0f}".format(p.old_price).replace(',', ' ') }} ₽</div>{% endif %}
+              <div class="pc-price">{{ "{:,.0f}".format(p.price).replace(',', ' ') }} <sub>₽</sub></div>
+            </div>
+            <button class="pc-add" onclick="addToCart(this)">+ Купить</button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-products">
+      <h3>Товары не найдены</h3>
+      <p>Попробуйте изменить фильтры или <a href="/catalog">сбросить всё</a></p>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<script>
+var selectedBrands = "{{ selected_brand or '' }}".split(',').filter(Boolean);
+var selectedCategory = "{{ selected_category or '' }}";
+
+function selectCategory(slug) {
+  selectedCategory = selectedCategory === slug ? '' : slug;
+  document.getElementById('categoryInput').value = selectedCategory;
+  document.querySelectorAll('.brand-row').forEach(function(r) {
+    if (!r.dataset.brand) {
+      r.querySelector('.brand-cb').classList.toggle('on', r.getAttribute('onclick').includes("'"+selectedCategory+"'"));
+      r.classList.toggle('selected', r.getAttribute('onclick').includes("'"+selectedCategory+"'"));
+    }
+  });
+}
+
+function toggleBrand(slug, row) {
+  var cb = row.querySelector('.brand-cb');
+  var idx = selectedBrands.indexOf(slug);
+  if (idx === -1) { selectedBrands.push(slug); cb.classList.add('on'); }
+  else { selectedBrands.splice(idx, 1); cb.classList.remove('on'); }
+  document.getElementById('brandInput').value = selectedBrands.join(',');
+}
+
+function filterBrands(q) {
+  var lq = q.toLowerCase();
+  document.querySelectorAll('#brandList .brand-row').forEach(function(r) {
+    r.style.display = r.dataset.brand.toLowerCase().includes(lq) ? '' : 'none';
+  });
+}
+
+var stockOn = {{ 'true' if in_stock else 'false' }};
+function toggleStock() {
+  stockOn = !stockOn;
+  document.getElementById('stockTrack').classList.toggle('on', stockOn);
+  document.getElementById('stockInput').value = stockOn ? 'true' : '';
+}
+
+function addToCart(btn) {
+  btn.textContent = '✓ В корзине';
+  btn.classList.add('in-cart');
+  setTimeout(function() { btn.textContent = '+ Купить'; btn.classList.remove('in-cart'); }, 2000);
+}
+</script>
+</body>
+</html>
