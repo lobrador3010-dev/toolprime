@@ -1,255 +1,1991 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Каталог — ToolPrime</title>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --blue-950:#05152e;--blue-900:#0a2247;--blue-800:#0d3068;
-      --blue-700:#1148a0;--blue-600:#1a6bdc;--blue-500:#3a87f0;
-      --blue-400:#60a5fa;--blue-100:#dbeafe;--blue-50:#eff6ff;
-      --gray-900:#111827;--gray-700:#374151;--gray-500:#6b7280;
-      --gray-300:#d1d5db;--gray-200:#e5e7eb;--gray-100:#f3f4f6;
-      --white:#ffffff;--orange:#f97316;--green:#16a34a;--red:#dc2626;
-      --r-sm:6px;--r-md:10px;--r-lg:14px;--max:1400px;--sidebar:264px;
-    }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Manrope',system-ui,sans-serif;background:var(--gray-100);color:var(--gray-900);font-size:14px}
-    a{color:var(--blue-600);text-decoration:none}
-    button{font-family:inherit;cursor:pointer}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ToolPrime — Инструмент оптом для профессионалов</title>
+<meta name="description" content="ToolPrime — первоклассный инструмент оптом. 16 128 товаров. Оптовые цены для прорабов, ИП и заводов.">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════ */
+:root {
+  /* Blues */
+  --blue-950: #05152e;
+  --blue-900: #0a2247;
+  --blue-800: #0d3068;
+  --blue-700: #1148a0;
+  --blue-600: #1a6bdc;
+  --blue-500: #3a87f0;
+  --blue-400: #60a5fa;
+  --blue-100: #dbeafe;
+  --blue-50:  #eff6ff;
 
-    /* HEADER */
-    header{background:var(--blue-900);position:sticky;top:0;z-index:200;box-shadow:0 4px 24px rgba(0,0,0,.35)}
-    .header-main{max-width:var(--max);margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px}
-    .logo-wrap{display:flex;align-items:center;gap:10px;flex-shrink:0}
-    .logo-stripes{display:flex;align-items:flex-end;gap:3px;height:32px}
-    .logo-stripes span{display:block;width:6px;background:var(--blue-500);border-radius:2px}
-    .logo-stripes span:nth-child(1){height:16px}
-    .logo-stripes span:nth-child(2){height:22px}
-    .logo-stripes span:nth-child(3){height:30px}
-    .logo-text{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.03em}
-    .logo-text em{color:var(--blue-400);font-style:normal}
-    .search-wrap{flex:1;max-width:560px;position:relative}
-    .search-wrap input{width:100%;height:44px;padding:0 50px 0 16px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.15);border-radius:var(--r-lg);font-size:14px;font-weight:500;color:#fff;outline:none}
-    .search-wrap input::placeholder{color:rgba(255,255,255,.38)}
-    .search-btn{position:absolute;right:6px;top:6px;width:32px;height:32px;background:var(--blue-600);border:none;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff}
-    .search-btn svg{width:16px;height:16px}
-    .cart-btn{display:flex;align-items:center;gap:8px;padding:10px 20px;background:var(--blue-600);border:none;border-radius:var(--r-md);color:#fff;font-size:14px;font-weight:700;margin-left:auto}
-    .cart-btn:hover{background:var(--blue-500)}
+  /* Neutrals */
+  --gray-950: #0c0f14;
+  --gray-900: #111827;
+  --gray-800: #1f2937;
+  --gray-700: #374151;
+  --gray-500: #6b7280;
+  --gray-300: #d1d5db;
+  --gray-200: #e5e7eb;
+  --gray-100: #f3f4f6;
+  --gray-50:  #f9fafb;
 
-    /* LAYOUT */
-    .page-wrap{max-width:var(--max);margin:0 auto;padding:20px;display:flex;gap:20px;align-items:flex-start}
+  --white: #ffffff;
+  --orange: #f97316;
+  --green:  #16a34a;
+  --red:    #dc2626;
 
-    /* SIDEBAR */
-    .sidebar{width:var(--sidebar);flex-shrink:0;background:var(--white);border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--gray-200)}
-    .sb-section{border-bottom:1px solid var(--gray-200);padding:16px}
-    .sb-section:last-child{border-bottom:none}
-    .sb-title{font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:12px;text-transform:uppercase;letter-spacing:.04em}
-    .sb-search{width:100%;padding:8px 10px;border:1px solid var(--gray-300);border-radius:var(--r-sm);font-size:13px;outline:none;margin-bottom:10px}
-    .sb-search:focus{border-color:var(--blue-500)}
-    .brand-list{max-height:220px;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
-    .brand-row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:var(--r-sm);cursor:pointer;transition:background .1s}
-    .brand-row:hover{background:var(--blue-50)}
-    .brand-row.selected{background:var(--blue-50)}
-    .brand-cb{width:16px;height:16px;border:2px solid var(--gray-300);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
-    .brand-cb.on{background:var(--blue-600);border-color:var(--blue-600)}
-    .brand-cb.on::after{content:'✓';color:#fff;font-size:10px;font-weight:700}
-    .brand-name{font-size:13px;color:var(--gray-700)}
-    .price-inputs{display:flex;gap:8px;align-items:center}
-    .price-input{width:100%;padding:7px 10px;border:1px solid var(--gray-300);border-radius:var(--r-sm);font-size:13px;outline:none}
-    .price-input:focus{border-color:var(--blue-500)}
-    .stock-toggle{display:flex;align-items:center;gap:8px;cursor:pointer}
-    .toggle-track{width:36px;height:20px;background:var(--gray-300);border-radius:10px;position:relative;transition:background .2s;flex-shrink:0}
-    .toggle-track.on{background:var(--blue-600)}
-    .toggle-thumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .2s}
-    .toggle-track.on .toggle-thumb{transform:translateX(16px)}
-    .sb-apply{width:100%;padding:10px;background:var(--blue-600);color:#fff;border:none;border-radius:var(--r-md);font-size:14px;font-weight:700;margin-top:4px}
-    .sb-apply:hover{background:var(--blue-500)}
-    .sb-reset{width:100%;padding:8px;background:none;color:var(--gray-500);border:1px solid var(--gray-300);border-radius:var(--r-md);font-size:13px;margin-top:6px}
-    .sb-reset:hover{border-color:var(--gray-500);color:var(--gray-700)}
+  /* Spacing */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 20px;
 
-    /* MAIN */
-    .catalog-main{flex:1;min-width:0}
-    .catalog-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:16px;background:var(--white);padding:12px 16px;border-radius:var(--r-lg);border:1px solid var(--gray-200)}
-    .toolbar-title{font-size:15px;font-weight:700;color:var(--gray-900)}
-    .toolbar-count{font-size:13px;color:var(--gray-500);margin-left:4px}
-    .toolbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
-    .sort-select{padding:7px 10px;border:1px solid var(--gray-300);border-radius:var(--r-sm);font-size:13px;outline:none;background:#fff}
-    .active-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
-    .filter-tag{display:flex;align-items:center;gap:4px;padding:4px 10px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:20px;font-size:12px;color:var(--blue-700);font-weight:600}
-    .filter-tag a{color:var(--blue-500);font-size:14px;line-height:1;text-decoration:none;margin-left:2px}
+  --max: 1400px;
+  --sidebar: 264px;
+}
 
-    /* PRODUCT GRID */
-    .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
-    .product-card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--gray-200);overflow:hidden;transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column}
-    .product-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.1);transform:translateY(-2px)}
-    .pc-img-wrap{position:relative;aspect-ratio:1;background:var(--gray-100);display:flex;align-items:center;justify-content:center;font-size:48px}
-    .pc-badge{position:absolute;top:8px;left:8px;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:800;letter-spacing:.04em}
-    .badge-hit{background:#fef3c7;color:#92400e}
-    .badge-new{background:#d1fae5;color:#065f46}
-    .pc-disc{position:absolute;top:8px;right:8px;background:var(--red);color:#fff;font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px}
-    .pc-wish{position:absolute;bottom:8px;right:8px;width:28px;height:28px;background:rgba(255,255,255,.9);border:1px solid var(--gray-200);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gray-500)}
-    .pc-wish svg{width:14px;height:14px}
-    .pc-wish.on{color:var(--red);border-color:var(--red)}
-    .pc-body{padding:12px;display:flex;flex-direction:column;flex:1}
-    .pc-brand{font-size:11px;font-weight:700;color:var(--blue-600);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
-    .pc-name{font-size:13px;font-weight:600;color:var(--gray-900);line-height:1.4;flex:1;margin-bottom:10px}
-    .pc-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:auto}
-    .pc-price-wrap{display:flex;flex-direction:column}
-    .pc-price-old{font-size:11px;color:var(--gray-500);text-decoration:line-through}
-    .pc-price{font-size:18px;font-weight:800;color:var(--gray-900);line-height:1}
-    .pc-price sub{font-size:12px;font-weight:600;vertical-align:baseline}
-    .pc-add{padding:7px 12px;background:var(--blue-600);color:#fff;border:none;border-radius:var(--r-sm);font-size:12px;font-weight:700;white-space:nowrap;transition:background .15s}
-    .pc-add:hover{background:var(--blue-500)}
-    .pc-add.in-cart{background:var(--green)}
-    .no-products{text-align:center;padding:60px 20px;color:var(--gray-500)}
-    .no-products h3{font-size:18px;font-weight:700;margin-bottom:8px;color:var(--gray-700)}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Manrope', system-ui, sans-serif;
+  background: var(--gray-100);
+  color: var(--gray-900);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.5;
+}
+a { color: var(--blue-600); text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+input, select, textarea { font-family: inherit; }
+img { display: block; max-width: 100%; }
 
-    /* CAT PILLS */
-    .cat-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-    .cat-pill{padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1.5px solid var(--gray-300);color:var(--gray-700);background:#fff;cursor:pointer;transition:all .15s}
-    .cat-pill:hover{border-color:var(--blue-500);color:var(--blue-600)}
-    .cat-pill.active{background:var(--blue-600);border-color:var(--blue-600);color:#fff}
-  </style>
+/* ═══════════════════════════════════════
+   TOP BAR
+═══════════════════════════════════════ */
+.topbar {
+  background: var(--blue-950);
+  color: rgba(255,255,255,.6);
+  font-size: 12px;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.topbar-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.topbar a { color: rgba(255,255,255,.55); transition: color .15s; }
+.topbar a:hover { color: #fff; }
+.topbar-sep { width: 1px; height: 12px; background: rgba(255,255,255,.15); }
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+
+/* ═══════════════════════════════════════
+   HEADER
+═══════════════════════════════════════ */
+header {
+  background: var(--blue-900);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 4px 24px rgba(0,0,0,.35);
+}
+.header-main {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Logo */
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  cursor: pointer;
+  user-select: none;
+}
+.logo-stripes {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 32px;
+}
+.logo-stripes span {
+  display: block;
+  width: 6px;
+  background: var(--blue-500);
+  border-radius: 2px;
+}
+.logo-stripes span:nth-child(1) { height: 16px; }
+.logo-stripes span:nth-child(2) { height: 22px; }
+.logo-stripes span:nth-child(3) { height: 30px; }
+.logo-text {
+  font-size: 22px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -.03em;
+  line-height: 1;
+}
+.logo-text em {
+  color: var(--blue-400);
+  font-style: normal;
+}
+.logo-sub {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255,255,255,.4);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Search */
+.search-wrap {
+  flex: 1;
+  max-width: 560px;
+  position: relative;
+}
+.search-wrap input {
+  width: 100%;
+  height: 44px;
+  padding: 0 50px 0 16px;
+  background: rgba(255,255,255,.1);
+  border: 1.5px solid rgba(255,255,255,.15);
+  border-radius: var(--r-lg);
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  outline: none;
+  transition: all .2s;
+}
+.search-wrap input::placeholder { color: rgba(255,255,255,.38); }
+.search-wrap input:focus {
+  background: rgba(255,255,255,.16);
+  border-color: var(--blue-400);
+}
+.search-btn {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  width: 32px;
+  height: 32px;
+  background: var(--blue-600);
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: background .15s;
+}
+.search-btn:hover { background: var(--blue-500); }
+.search-btn svg { width: 16px; height: 16px; }
+
+/* Header actions */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.hdr-contact {
+  text-align: right;
+  margin-right: 4px;
+}
+.hdr-phone {
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -.01em;
+  line-height: 1.2;
+}
+.hdr-phone a { color: #fff; }
+.hdr-hours {
+  font-size: 11px;
+  color: rgba(255,255,255,.4);
+  font-weight: 500;
+}
+.hdr-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 14px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--r-md);
+  color: rgba(255,255,255,.75);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  transition: all .15s;
+  position: relative;
+  white-space: nowrap;
+}
+.hdr-action-btn:hover {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+}
+.hdr-action-btn svg { width: 20px; height: 20px; }
+.hdr-badge {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.hdr-cart-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--blue-600);
+  border: none;
+  border-radius: var(--r-md);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  transition: background .15s;
+  position: relative;
+}
+.hdr-cart-btn:hover { background: var(--blue-500); }
+.hdr-cart-btn svg { width: 20px; height: 20px; }
+.cart-count {
+  background: var(--orange);
+  border-radius: 20px;
+  padding: 0 7px;
+  font-size: 12px;
+  font-weight: 800;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════
+   NAV BAR
+═══════════════════════════════════════ */
+.navbar {
+  background: var(--blue-800);
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.navbar-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: stretch;
+}
+.nav-item {
+  padding: 11px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,.7);
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 3px solid transparent;
+  transition: all .15s;
+  white-space: nowrap;
+  letter-spacing: .01em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-item:hover { color: #fff; background: rgba(255,255,255,.06); }
+.nav-item.active { color: #fff; border-bottom-color: var(--blue-400); background: rgba(255,255,255,.08); }
+.nav-item.hot { color: #fbbf24; }
+.nav-item.hot:hover { color: #fde68a; }
+
+/* ═══════════════════════════════════════
+   PROMO RIBBON
+═══════════════════════════════════════ */
+.promo-ribbon {
+  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
+  padding: 9px 0;
+  overflow: hidden;
+  position: relative;
+}
+.promo-ribbon-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.ribbon-tag {
+  background: rgba(0,0,0,.2);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 4px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.ribbon-text {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  flex: 1;
+}
+.ribbon-text strong { font-weight: 800; }
+.ribbon-cta {
+  background: rgba(255,255,255,.2);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.4);
+  padding: 5px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background .15s;
+}
+.ribbon-cta:hover { background: rgba(255,255,255,.3); }
+
+/* ═══════════════════════════════════════
+   HERO SECTION
+═══════════════════════════════════════ */
+.hero-section {
+  background: linear-gradient(135deg, var(--blue-950) 0%, var(--blue-800) 60%, #1a4f99 100%);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+/* Geometric background pattern */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+/* Diagonal accent */
+.hero-section::after {
+  content: '';
+  position: absolute;
+  right: -100px;
+  top: 0;
+  width: 600px;
+  height: 100%;
+  background: linear-gradient(135deg, transparent 40%, rgba(26,107,220,.2) 100%);
+  clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 60px 20px 56px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 48px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.hero-left {}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(26,107,220,.25);
+  border: 1px solid rgba(96,165,250,.3);
+  border-radius: 20px;
+  padding: 5px 14px 5px 8px;
+  margin-bottom: 22px;
+}
+.hero-eyebrow-dot {
+  width: 8px; height: 8px;
+  background: var(--blue-400);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .6; transform: scale(.85); }
+}
+.hero-eyebrow span { font-size: 12px; font-weight: 700; color: var(--blue-400); letter-spacing: .04em; text-transform: uppercase; }
+
+.hero-h1 {
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -.03em;
+  color: #fff;
+  margin-bottom: 18px;
+}
+.hero-h1 .accent { color: var(--blue-400); position: relative; }
+
+.hero-p {
+  font-size: 17px;
+  color: rgba(255,255,255,.65);
+  line-height: 1.65;
+  max-width: 520px;
+  margin-bottom: 32px;
+  font-weight: 500;
+}
+.hero-p strong { color: rgba(255,255,255,.9); font-weight: 700; }
+
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.btn-primary {
+  padding: 14px 32px;
+  background: var(--blue-600);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-lg);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-primary:hover { background: var(--blue-500); transform: translateY(-1px); }
+.btn-primary svg { width: 18px; height: 18px; }
+.btn-secondary {
+  padding: 14px 28px;
+  background: transparent;
+  color: rgba(255,255,255,.85);
+  border: 1.5px solid rgba(255,255,255,.25);
+  border-radius: var(--r-lg);
+  font-size: 15px;
+  font-weight: 700;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-secondary:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.45); }
+.btn-secondary svg { width: 18px; height: 18px; }
+
+.hero-trust {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.trust-icon {
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.trust-icon svg { width: 18px; height: 18px; color: var(--blue-400); }
+.trust-label { font-size: 12px; color: rgba(255,255,255,.7); font-weight: 600; line-height: 1.3; }
+.trust-label strong { display: block; font-size: 14px; color: #fff; font-weight: 800; }
+
+/* Hero right — stats card */
+.hero-right {}
+.stats-card {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--r-xl);
+  padding: 28px;
+  backdrop-filter: blur(20px);
+}
+.stats-card-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: rgba(255,255,255,.4);
+  margin-bottom: 20px;
+}
+.stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.stat-row:last-child { border-bottom: none; }
+.stat-label { font-size: 13px; color: rgba(255,255,255,.6); font-weight: 500; }
+.stat-value {
+  font-size: 22px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -.02em;
+  line-height: 1;
+}
+.stat-value small { font-size: 13px; font-weight: 600; color: var(--blue-400); }
+.stat-bar {
+  margin-top: 6px;
+  height: 3px;
+  background: rgba(255,255,255,.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.stat-fill {
+  height: 100%;
+  background: var(--blue-500);
+  border-radius: 2px;
+}
+
+.hero-advantages {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.adv-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(255,255,255,.75);
+  font-weight: 500;
+}
+.adv-check {
+  width: 20px; height: 20px;
+  background: rgba(22,163,74,.2);
+  border: 1px solid rgba(22,163,74,.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #4ade80;
+}
+.adv-check svg { width: 11px; height: 11px; }
+
+/* ═══════════════════════════════════════
+   WHO WE SERVE
+═══════════════════════════════════════ */
+.serve-section {
+  background: var(--blue-900);
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.serve-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.serve-label { font-size: 12px; font-weight: 700; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: .06em; flex-shrink: 0; margin-right: 6px; }
+.serve-chip {
+  padding: 6px 16px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,.75);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.serve-chip:hover { background: rgba(255,255,255,.12); color: #fff; }
+.serve-chip svg { width: 15px; height: 15px; color: var(--blue-400); }
+
+/* ═══════════════════════════════════════
+   CATEGORY GRID
+═══════════════════════════════════════ */
+.cat-section {
+  max-width: var(--max);
+  margin: 28px auto;
+  padding: 0 20px;
+}
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -.02em;
+  color: var(--gray-900);
+}
+.section-count {
+  font-size: 13px;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+.section-link {
+  margin-left: auto;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--blue-600);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.section-link svg { width: 14px; height: 14px; }
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 10px;
+}
+.cat-card {
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--r-lg);
+  padding: 16px 14px;
+  cursor: pointer;
+  transition: all .18s;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.cat-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--blue-600);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .2s;
+}
+.cat-card:hover {
+  border-color: var(--blue-400);
+  box-shadow: 0 4px 16px rgba(26,107,220,.12);
+  transform: translateY(-2px);
+}
+.cat-card:hover::before { transform: scaleX(1); }
+.cat-icon {
+  width: 44px; height: 44px;
+  background: var(--blue-50);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.cat-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gray-800);
+  line-height: 1.3;
+}
+.cat-count {
+  font-size: 11px;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════
+   MAIN CATALOG LAYOUT
+═══════════════════════════════════════ */
+.catalog-layout {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  display: grid;
+  grid-template-columns: var(--sidebar) 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* ═══════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════ */
+.sidebar {
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  position: sticky;
+  top: 100px;
+}
+.sb-header {
+  background: var(--blue-900);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sb-header-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.sb-reset {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,.5);
+  cursor: pointer;
+  transition: color .15s;
+  background: none;
+  border: none;
+}
+.sb-reset:hover { color: #fff; }
+
+/* ALL FILTERS button */
+.all-filters-btn {
+  margin: 12px;
+  padding: 10px 14px;
+  background: var(--blue-50);
+  border: 1.5px solid var(--blue-600);
+  border-radius: var(--r-md);
+  color: var(--blue-700);
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: calc(100% - 24px);
+  transition: all .15s;
+}
+.all-filters-btn:hover { background: var(--blue-100); }
+.all-filters-btn svg { width: 16px; height: 16px; }
+.all-filters-badge {
+  margin-left: auto;
+  background: var(--blue-600);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Price filter */
+.sb-block {
+  border-top: 1px solid var(--gray-200);
+  padding: 14px 14px 12px;
+}
+.sb-block-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--gray-500);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sb-block-title button {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--blue-600);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.price-inputs {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.price-inputs input {
+  flex: 1;
+  padding: 7px 10px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-900);
+  text-align: center;
+  outline: none;
+  transition: border-color .15s;
+}
+.price-inputs input:focus { border-color: var(--blue-500); }
+.price-sep { font-size: 13px; color: var(--gray-400); flex-shrink: 0; }
+.range-track {
+  position: relative;
+  height: 20px;
+  margin: 4px 2px 0;
+}
+.range-bg {
+  position: absolute;
+  top: 8px;
+  left: 0; right: 0;
+  height: 4px;
+  background: var(--gray-200);
+  border-radius: 2px;
+}
+.range-progress {
+  position: absolute;
+  top: 8px;
+  height: 4px;
+  background: var(--blue-600);
+  border-radius: 2px;
+  left: 12%;
+  right: 20%;
+}
+.range-thumb {
+  position: absolute;
+  top: 2px;
+  width: 16px; height: 16px;
+  background: #fff;
+  border: 2.5px solid var(--blue-600);
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0,0,0,.2);
+  cursor: pointer;
+}
+.range-thumb.left { left: calc(12% - 8px); }
+.range-thumb.right { right: calc(20% - 8px); }
+
+/* Brand filter */
+.brand-search-wrap {
+  position: relative;
+  margin-bottom: 8px;
+}
+.brand-search-wrap input {
+  width: 100%;
+  padding: 7px 10px 7px 30px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gray-900);
+  outline: none;
+  transition: border-color .15s;
+}
+.brand-search-wrap input:focus { border-color: var(--blue-500); }
+.brand-search-wrap svg {
+  position: absolute;
+  left: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px; height: 14px;
+  color: var(--gray-400);
+  pointer-events: none;
+}
+.brand-list { display: flex; flex-direction: column; gap: 1px; max-height: 180px; overflow-y: auto; }
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background .12s;
+}
+.brand-row:hover { background: var(--blue-50); }
+.brand-cb {
+  width: 16px; height: 16px;
+  border: 1.5px solid var(--gray-300);
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .12s;
+}
+.brand-cb.on { background: var(--blue-600); border-color: var(--blue-600); }
+.brand-cb.on svg { display: block; }
+.brand-cb svg { display: none; width: 10px; height: 10px; color: #fff; }
+.brand-name { font-size: 12px; font-weight: 600; color: var(--gray-800); flex: 1; }
+.brand-cnt { font-size: 11px; color: var(--gray-400); font-weight: 500; }
+
+/* Category nav */
+.cat-nav { border-top: 1px solid var(--gray-200); }
+.cat-nav-group { border-bottom: 1px solid var(--gray-100); }
+.cat-nav-head {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gray-800);
+  transition: all .12s;
+  gap: 8px;
+  user-select: none;
+}
+.cat-nav-head:hover { background: var(--blue-50); color: var(--blue-700); }
+.cat-nav-head.open { color: var(--blue-700); }
+.cat-nav-icon { font-size: 15px; flex-shrink: 0; }
+.cat-nav-name { flex: 1; line-height: 1.3; }
+.cat-nav-meta { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.cat-nav-cnt {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gray-400);
+  background: var(--gray-100);
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+.cat-nav-arr {
+  width: 16px; height: 16px;
+  color: var(--gray-400);
+  transition: transform .2s;
+  flex-shrink: 0;
+}
+.cat-nav-head.open .cat-nav-arr { transform: rotate(90deg); }
+.cat-nav-subs { display: none; padding: 0 0 6px 36px; background: var(--gray-50); }
+.cat-nav-head.open + .cat-nav-subs { display: block; }
+.cat-nav-sub {
+  padding: 6px 14px 6px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gray-600);
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: all .1s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cat-nav-sub:hover { color: var(--blue-700); border-left-color: var(--blue-400); }
+.cat-nav-sub.active { color: var(--blue-700); font-weight: 700; border-left-color: var(--blue-600); background: var(--blue-50); }
+.cat-nav-sub-cnt { font-size: 10px; color: var(--gray-400); }
+
+/* ═══════════════════════════════════════
+   CONTENT AREA
+═══════════════════════════════════════ */
+.content-area {}
+
+/* Active filters bar */
+.active-filters-bar {
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--r-lg);
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.af-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  flex-shrink: 0;
+}
+.af-tag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px 4px 12px;
+  background: var(--blue-50);
+  border: 1px solid var(--blue-200);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--blue-700);
+  cursor: pointer;
+  transition: all .12s;
+}
+.af-tag:hover { background: var(--blue-100); }
+.af-tag svg { width: 12px; height: 12px; }
+.af-clear-all {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray-500);
+  background: none;
+  border: 1px solid var(--gray-200);
+  padding: 4px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all .12s;
+  flex-shrink: 0;
+}
+.af-clear-all:hover { border-color: var(--red); color: var(--red); }
+
+/* Toolbar */
+.toolbar {
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--r-lg);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.toolbar-count { font-size: 13px; font-weight: 700; color: var(--gray-700); }
+.toolbar-count span { color: var(--blue-600); }
+.toolbar-sep { flex: 1; }
+.sort-sel {
+  padding: 7px 12px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-800);
+  outline: none;
+  background: var(--gray-50);
+  cursor: pointer;
+  transition: border-color .15s;
+}
+.sort-sel:focus { border-color: var(--blue-500); }
+.view-toggle { display: flex; gap: 4px; }
+.view-btn {
+  width: 32px; height: 32px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 6px;
+  background: var(--gray-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--gray-400);
+  transition: all .12s;
+}
+.view-btn:hover { border-color: var(--blue-400); color: var(--blue-600); }
+.view-btn.active { background: var(--blue-600); border-color: var(--blue-600); color: #fff; }
+.view-btn svg { width: 16px; height: 16px; }
+
+/* Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+/* Product Card */
+.product-card {
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all .18s;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.product-card:hover {
+  border-color: var(--blue-400);
+  box-shadow: 0 8px 24px rgba(26,107,220,.12);
+  transform: translateY(-3px);
+}
+.product-card:hover .pc-add { opacity: 1; transform: translateY(0); }
+
+.pc-img-wrap {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--gray-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  position: relative;
+  overflow: hidden;
+}
+.pc-wish {
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gray-200);
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+  transition: all .12s;
+  color: var(--gray-400);
+}
+.pc-wish:hover { border-color: #f87171; color: var(--red); }
+.pc-wish.on { border-color: #fca5a5; background: #fff5f5; color: var(--red); }
+.pc-wish svg { width: 14px; height: 14px; }
+
+.pc-badge {
+  position: absolute;
+  top: 8px; left: 8px;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+.badge-hit { background: #dbeafe; color: #1e40af; }
+.badge-sale { background: #ffedd5; color: #9a3412; }
+.badge-new { background: #dcfce7; color: #166534; }
+
+.pc-disc {
+  position: absolute;
+  bottom: 8px; right: 8px;
+  background: var(--red);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.pc-body {
+  padding: 10px 12px 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.pc-brand {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--blue-600);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 4px;
+}
+.pc-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-800);
+  line-height: 1.45;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.pc-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: auto;
+}
+.pc-price-wrap {}
+.pc-price-old { font-size: 11px; color: var(--gray-400); text-decoration: line-through; line-height: 1.2; }
+.pc-price { font-size: 17px; font-weight: 900; color: var(--blue-700); letter-spacing: -.02em; line-height: 1; }
+.pc-price sub { font-size: 11px; font-weight: 700; }
+.pc-add {
+  padding: 6px 11px;
+  background: var(--blue-50);
+  border: 1.5px solid var(--blue-200);
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--blue-700);
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  transition: all .15s;
+  flex-shrink: 0;
+}
+.pc-add:hover { background: var(--blue-600); border-color: var(--blue-600); color: #fff; }
+.pc-add.in-cart { background: #dcfce7; border-color: #86efac; color: var(--green); }
+
+/* ═══════════════════════════════════════
+   ALL FILTERS PANEL (drawer style)
+═══════════════════════════════════════ */
+.filters-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(5,21,46,.6);
+  z-index: 500;
+  backdrop-filter: blur(2px);
+}
+.filters-overlay.open { display: flex; justify-content: flex-end; }
+.filters-panel {
+  width: 480px;
+  max-width: 95vw;
+  height: 100vh;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  animation: slidein .25s ease;
+}
+@keyframes slidein { from { transform: translateX(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+.fp-header {
+  background: var(--blue-900);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.fp-title { font-size: 16px; font-weight: 800; color: #fff; flex: 1; letter-spacing: -.01em; }
+.fp-subtitle { font-size: 12px; color: rgba(255,255,255,.5); }
+.fp-close {
+  width: 32px; height: 32px;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  flex-shrink: 0;
+}
+.fp-close svg { width: 18px; height: 18px; }
+.fp-body { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+.fp-section {}
+.fp-section-title {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--gray-500);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fp-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gray-200);
+}
+.fp-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.fp-chip {
+  padding: 6px 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-700);
+  cursor: pointer;
+  transition: all .12s;
+  background: var(--white);
+}
+.fp-chip:hover { border-color: var(--blue-400); color: var(--blue-600); background: var(--blue-50); }
+.fp-chip.on { background: var(--blue-600); border-color: var(--blue-600); color: #fff; }
+.fp-brand-search-wrap { position: relative; margin-bottom: 10px; }
+.fp-brand-search-wrap input {
+  width: 100%;
+  padding: 8px 12px 8px 34px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  color: var(--gray-900);
+  outline: none;
+  transition: border-color .15s;
+}
+.fp-brand-search-wrap input:focus { border-color: var(--blue-500); }
+.fp-brand-search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--gray-400); pointer-events: none; }
+.fp-brands-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.fp-brand-item {
+  padding: 8px 10px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray-700);
+  text-align: center;
+  cursor: pointer;
+  transition: all .12s;
+}
+.fp-brand-item:hover { border-color: var(--blue-400); color: var(--blue-600); background: var(--blue-50); }
+.fp-brand-item.on { background: var(--blue-600); border-color: var(--blue-600); color: #fff; }
+.fp-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--gray-200);
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.fp-apply {
+  flex: 1;
+  padding: 12px;
+  background: var(--blue-600);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-weight: 800;
+  transition: background .15s;
+}
+.fp-apply:hover { background: var(--blue-500); }
+.fp-reset {
+  padding: 12px 20px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--r-md);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gray-600);
+  background: none;
+  transition: all .12s;
+}
+.fp-reset:hover { border-color: var(--gray-400); color: var(--gray-800); }
+
+/* ═══════════════════════════════════════
+   ADVANTAGE STRIP
+═══════════════════════════════════════ */
+.adv-strip {
+  background: var(--blue-900);
+  padding: 22px 0;
+  margin: 28px 0 0;
+}
+.adv-strip-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+}
+.adv-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.adv-icon-wrap {
+  width: 44px; height: 44px;
+  background: rgba(26,107,220,.3);
+  border: 1px solid rgba(96,165,250,.25);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--blue-400);
+}
+.adv-icon-wrap svg { width: 22px; height: 22px; }
+.adv-text-wrap {}
+.adv-title { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 3px; letter-spacing: -.01em; }
+.adv-sub { font-size: 12px; color: rgba(255,255,255,.5); line-height: 1.4; font-weight: 500; }
+
+/* ═══════════════════════════════════════
+   BRANDS SECTION
+═══════════════════════════════════════ */
+.brands-section {
+  max-width: var(--max);
+  margin: 28px auto;
+  padding: 0 20px;
+}
+.brands-grid-outer {
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--r-xl);
+  padding: 20px;
+}
+.brands-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.brand-pill {
+  padding: 8px 18px;
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--r-md);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--gray-700);
+  cursor: pointer;
+  transition: all .15s;
+  letter-spacing: .01em;
+}
+.brand-pill:hover {
+  background: var(--blue-50);
+  border-color: var(--blue-300);
+  color: var(--blue-700);
+  transform: translateY(-1px);
+}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer {
+  background: var(--blue-950);
+  color: rgba(255,255,255,.5);
+  padding: 36px 0 20px;
+  margin-top: 40px;
+}
+.footer-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 280px 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 32px;
+}
+.footer-brand { }
+.footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.footer-logo-text { font-size: 20px; font-weight: 900; color: #fff; letter-spacing: -.02em; }
+.footer-logo-text em { color: var(--blue-400); font-style: normal; }
+.footer-desc { font-size: 13px; line-height: 1.65; margin-bottom: 16px; }
+.footer-contact a { display: block; font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+.footer-contact span { font-size: 12px; }
+.footer-col-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.3); margin-bottom: 14px; }
+.footer-links { display: flex; flex-direction: column; gap: 8px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,.5); transition: color .12s; font-weight: 500; }
+.footer-links a:hover { color: #fff; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.07);
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.footer-bottom-text { font-size: 12px; color: rgba(255,255,255,.3); }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .catalog-layout { grid-template-columns: 230px 1fr; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .catalog-layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .topbar { display: none; }
+  .hdr-contact { display: none; }
+  .hero-h1 { font-size: 32px; }
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-top > *:not(:first-child) { display: none; }
+}
+
+/* ═══════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════ */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+</style>
 </head>
 <body>
 
+<!-- ─── TOP BAR ─── -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="#">toolprime.ru</a>
+    <div class="topbar-sep"></div>
+    <a href="mailto:semyon@toolprime.ru">semyon@toolprime.ru</a>
+    <div class="topbar-sep"></div>
+    <span>Работаем с ИП и юр. лицами</span>
+    <div class="topbar-sep"></div>
+    <span>🚚 Доставка по всей России</span>
+    <div class="topbar-right">
+      <a href="#">ЭДО</a>
+      <div class="topbar-sep"></div>
+      <a href="#">Личный кабинет</a>
+      <div class="topbar-sep"></div>
+      <a href="#">Оптовикам</a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── HEADER ─── -->
 <header>
   <div class="header-main">
-    <a href="/" class="logo-wrap">
-      <div class="logo-stripes"><span></span><span></span><span></span></div>
-      <div><div class="logo-text">Tool<em>Prime</em></div></div>
-    </a>
-    <form class="search-wrap" action="/catalog" method="get">
-      {% if selected_category %}<input type="hidden" name="category" value="{{ selected_category }}">{% endif %}
-      <input name="q" type="text" placeholder="Найти товар..." value="{{ q or '' }}">
-      <button class="search-btn" type="submit">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+
+    <!-- Logo -->
+    <div class="logo-wrap" onclick="scrollTo(0,0)">
+      <div class="logo-stripes">
+        <span></span><span></span><span></span>
+      </div>
+      <div>
+        <div class="logo-text">Tool<em>Prime</em></div>
+        <div class="logo-sub">Инструмент оптом</div>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div class="search-wrap">
+      <input type="text" placeholder="Найти перфоратор, диски, биты, защиту…" id="searchInput" autocomplete="off">
+      <button class="search-btn" aria-label="Поиск">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
       </button>
-    </form>
-    <a href="/cart" class="cart-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-      Корзина
-    </a>
+    </div>
+
+    <!-- Actions -->
+    <div class="header-actions">
+      <div class="hdr-contact">
+        <div class="hdr-phone"><a href="tel:+79155998079">+7 (915) 599-80-79</a></div>
+        <div class="hdr-hours">Пн–Пт 9:00–18:00</div>
+      </div>
+
+      <button class="hdr-action-btn" aria-label="Избранное">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Избранное
+      </button>
+
+      <button class="hdr-action-btn" aria-label="Сравнение">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Сравнение
+      </button>
+
+      <button class="hdr-cart-btn" id="cartBtn" aria-label="Корзина">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Корзина
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <div class="navbar">
+    <div class="navbar-inner">
+      <button class="nav-item active">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Каталог
+      </button>
+      <button class="nav-item hot">🔥 Акции</button>
+      <button class="nav-item">Новинки</button>
+      <button class="nav-item">Оптовикам</button>
+      <button class="nav-item">Услуги</button>
+      <button class="nav-item">ЭДО</button>
+      <button class="nav-item">Доставка</button>
+      <button class="nav-item">Контакты</button>
+    </div>
   </div>
 </header>
 
-<div class="page-wrap">
+<!-- ─── PROMO RIBBON ─── -->
+<div class="promo-ribbon">
+  <div class="promo-ribbon-inner">
+    <span class="ribbon-tag">🔥 Акция</span>
+    <span class="ribbon-text">При заказе от <strong>50 000 ₽</strong> — дополнительная скидка <strong>5%</strong> + бесплатная доставка по России</span>
+    <button class="ribbon-cta">Узнать подробнее</button>
+  </div>
+</div>
+
+<!-- ─── HERO ─── -->
+<div class="hero-section">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span>Оптовые поставки · B2B · РФ и СНГ</span>
+      </div>
+
+      <h1 class="hero-h1">
+        Профессиональный<br>
+        инструмент <span class="accent">оптом</span><br>
+        по лучшим ценам
+      </h1>
+
+      <p class="hero-p">
+        <strong>16 128 позиций</strong> в наличии. Работаем с прорабами,
+        ИП и снабженцами заводов. Оптовые цены — без наценок
+        розницы. Отгрузка в день заказа.
+      </p>
+
+      <div class="hero-btns">
+        <button class="btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Открыть каталог
+        </button>
+        <button class="btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.29 6.29l.82-.82a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Позвонить менеджеру
+        </button>
+      </div>
+
+      <div class="hero-trust">
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="trust-label">
+            <strong>Официальные</strong>
+            поставщики брендов
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div class="trust-label">
+            <strong>Доставка за 1–3 дня</strong>
+            по всей России
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div class="trust-label">
+            <strong>Оптовые цены</strong>
+            от 1 упаковки
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Card -->
+    <div class="hero-right">
+      <div class="stats-card">
+        <div class="stats-card-title">Показатели ToolPrime</div>
+        <div class="stat-row">
+          <span class="stat-label">Товаров в наличии</span>
+          <div>
+            <div class="stat-value">16 128 <small>SKU</small></div>
+            <div class="stat-bar"><div class="stat-fill" style="width:92%"></div></div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Выполненных заказов</span>
+          <div>
+            <div class="stat-value">4 700+</div>
+            <div class="stat-bar"><div class="stat-fill" style="width:78%"></div></div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Брендов в каталоге</span>
+          <div>
+            <div class="stat-value">23</div>
+            <div class="stat-bar"><div class="stat-fill" style="width:55%"></div></div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Лет на рынке</span>
+          <div>
+            <div class="stat-value">5+</div>
+            <div class="stat-bar"><div class="stat-fill" style="width:40%"></div></div>
+          </div>
+        </div>
+        <div class="hero-advantages">
+          <div class="adv-row">
+            <div class="adv-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Цены ниже рекомендованной розницы
+          </div>
+          <div class="adv-row">
+            <div class="adv-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            ЭДО: счёт-фактура, накладная, УПД
+          </div>
+          <div class="adv-row">
+            <div class="adv-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Постоплата для постоянных клиентов
+          </div>
+          <div class="adv-row">
+            <div class="adv-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Персональный менеджер на WhatsApp
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── WHO WE SERVE ─── -->
+<div class="serve-section">
+  <div class="serve-inner">
+    <span class="serve-label">Работаем с:</span>
+    <div class="serve-chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M2 20h20M6 20V10M10 20V4M14 20v-8M18 20v-6"/></svg>
+      Прорабами и бригадами
+    </div>
+    <div class="serve-chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      ИП и малым бизнесом
+    </div>
+    <div class="serve-chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75a13 13 0 0 1 6.88 12.96"/></svg>
+      Снабженцами заводов
+    </div>
+    <div class="serve-chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      Строительными компаниями
+    </div>
+    <div class="serve-chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+      Розничными магазинами
+    </div>
+  </div>
+</div>
+
+<!-- ─── ADVANTAGE STRIP ─── -->
+<div class="adv-strip">
+  <div class="adv-strip-inner">
+    <div class="adv-item">
+      <div class="adv-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div class="adv-text-wrap">
+        <div class="adv-title">Оптовые цены</div>
+        <div class="adv-sub">Без розничной наценки, от 1 упаковки</div>
+      </div>
+    </div>
+    <div class="adv-item">
+      <div class="adv-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      </div>
+      <div class="adv-text-wrap">
+        <div class="adv-title">Отгрузка в день заказа</div>
+        <div class="adv-sub">Доставка по России 1–3 рабочих дня</div>
+      </div>
+    </div>
+    <div class="adv-item">
+      <div class="adv-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <div class="adv-text-wrap">
+        <div class="adv-title">Полный пакет документов</div>
+        <div class="adv-sub">Счёт, УПД, ТН, ЭДО с любым оператором</div>
+      </div>
+    </div>
+    <div class="adv-item">
+      <div class="adv-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="adv-text-wrap">
+        <div class="adv-title">Персональный менеджер</div>
+        <div class="adv-sub">Быстрый ответ в WhatsApp и по телефону</div>
+      </div>
+    </div>
+    <div class="adv-item">
+      <div class="adv-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="adv-text-wrap">
+        <div class="adv-title">Гарантия на весь товар</div>
+        <div class="adv-sub">Официальные поставщики ведущих брендов</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CATEGORY GRID ─── -->
+<div class="cat-section">
+  <div class="section-header">
+    <div class="section-title">Популярные категории</div>
+    <div class="section-count">18 разделов</div>
+    <div class="section-link">
+      Все категории
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card"><div class="cat-icon">🔵</div><div class="cat-name">Абразивные материалы</div><div class="cat-count">1 330 товаров</div></div>
+    <div class="cat-card"><div class="cat-icon">🚗</div><div class="cat-name">Автомобильный инструмент</div><div class="cat-count">859 товаров</div></div>
+    <div class="cat-card"><div class="cat-icon">⚡</div><div class="cat-name">Электроинструмент</div><div class="cat-count">2 100+ товаров</div></div>
+    <div class="cat-card"><div class="cat-icon">🔨</div><div class="cat-name">Свёрла, буры, коронки</div><div class="cat-count">1 858 товаров</div></div>
+    <div class="cat-card"><div class="cat-icon">🔧</div><div class="cat-name">Столярно-слесарный</div><div class="cat-count">2 366 товаров</div></div>
+    <div class="cat-card"><div class="cat-icon">📐</div><div class="cat-name">Измерительный инструмент</div><div class="cat-count">540 товаров</div></div>
+    <div class="cat-card"><div class="cat-icon">🦺</div><div class="cat-name">Средства защиты труда</div><div class="cat-count">304 товара</div></div>
+    <div class="cat-card"><div class="cat-icon">🌿</div><div class="cat-name">Садово-огородный</div><div class="cat-count">868 товаров</div></div>
+    <div class="cat-card"><div class="cat-icon">🚿</div><div class="cat-name">Сантехника</div><div class="cat-count">259 товаров</div></div>
+    <div class="cat-card"><div class="cat-icon">🗃️</div><div class="cat-name">Системы хранения</div><div class="cat-count">159 товаров</div></div>
+  </div>
+</div>
+
+<!-- ─── CATALOG WITH FILTERS ─── -->
+<div class="catalog-layout">
 
   <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <form id="filterForm" action="/catalog" method="get">
-      {% if q %}<input type="hidden" name="q" value="{{ q }}">{% endif %}
+  <aside class="sidebar" id="catalogSidebar">
+    <div class="sb-header">
+      <span class="sb-header-title">Фильтры</span>
+      <button class="sb-reset" onclick="resetFilters()">Сбросить всё</button>
+    </div>
 
-      <div class="sb-section">
-        <div class="sb-title">Категории</div>
-        {% for cat in categories %}
-        <div class="brand-row {% if selected_category == cat.slug %}selected{% endif %}"
-             onclick="selectCategory('{{ cat.slug }}')">
-          <div class="brand-cb {% if selected_category == cat.slug %}on{% endif %}"></div>
-          <span class="brand-name">{{ cat.name }}</span>
-        </div>
-        {% endfor %}
-        <input type="hidden" name="category" id="categoryInput" value="{{ selected_category or '' }}">
+    <button class="all-filters-btn" onclick="openFilters()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+      Все фильтры
+      <span class="all-filters-badge" id="filterCount">5</span>
+    </button>
+
+    <!-- Price -->
+    <div class="sb-block">
+      <div class="sb-block-title">
+        Цена, ₽
+        <button>Сбросить</button>
       </div>
+      <div class="price-inputs">
+        <input type="number" id="pmin" value="500" placeholder="от">
+        <span class="price-sep">—</span>
+        <input type="number" id="pmax" value="45000" placeholder="до">
+      </div>
+      <div class="range-track">
+        <div class="range-bg"></div>
+        <div class="range-progress"></div>
+        <div class="range-thumb left"></div>
+        <div class="range-thumb right"></div>
+      </div>
+    </div>
 
-      <div class="sb-section">
-        <div class="sb-title">Производитель</div>
-        <input class="sb-search" type="text" placeholder="Поиск бренда..." oninput="filterBrands(this.value)">
-        <div class="brand-list" id="brandList">
-          {% for b in brands %}
-          <div class="brand-row" data-brand="{{ b.name }}" onclick="toggleBrand('{{ b.slug }}', this)">
-            <div class="brand-cb {% if selected_brand and b.slug in selected_brand.split(',') %}on{% endif %}"></div>
-            <span class="brand-name">{{ b.name }}</span>
+    <!-- Brands -->
+    <div class="sb-block">
+      <div class="sb-block-title">
+        Производитель
+        <button>Сбросить</button>
+      </div>
+      <div class="brand-search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Поиск бренда…" id="brandSearchInput" oninput="filterBrands(this.value)">
+      </div>
+      <div class="brand-list" id="brandList">
+        <div class="brand-row" data-brand="DEXX"><div class="brand-cb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="brand-name">DEXX</span><span class="brand-cnt">312</span></div>
+        <div class="brand-row" data-brand="Grinda"><div class="brand-cb on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="brand-name">Grinda</span><span class="brand-cnt">287</span></div>
+        <div class="brand-row" data-brand="JCB"><div class="brand-cb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="brand-name">JCB</span><span class="brand-cnt">198</span></div>
+        <div class="brand-row" data-brand="Kraftool"><div class="brand-cb on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="brand-name">Kraftool</span><span class="brand-cnt">145</span></div>
+        <div class="brand-row" data-brand="Stayer"><div class="brand-cb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="brand-name">Stayer</span><span class="brand-cnt">134</span></div>
+        <div class="brand-row" data-brand="Зубр"><div class="brand-cb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="brand-name">Зубр</span><span class="brand-cnt">89</span></div>
+        <div class="brand-row" data-brand="OLFA"><div class="brand-cb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="brand-name">OLFA</span><span class="brand-cnt">67</span></div>
+        <div class="brand-row" data-brand="Raco"><div class="brand-cb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="brand-name">Raco</span><span class="brand-cnt">55</span></div>
+      </div>
+    </div>
+
+    <!-- Category nav -->
+    <div class="cat-nav" id="catNav">
+      <div class="cat-nav-group">
+        <div class="cat-nav-head open" onclick="toggleCatGroup(this)">
+          <span class="cat-nav-icon">🔵</span>
+          <span class="cat-nav-name">Абразивные материалы</span>
+          <div class="cat-nav-meta">
+            <span class="cat-nav-cnt">1330</span>
+            <svg class="cat-nav-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
-          {% endfor %}
         </div>
-        <input type="hidden" name="brand" id="brandInput" value="{{ selected_brand or '' }}">
-      </div>
-
-      <div class="sb-section">
-        <div class="sb-title">Цена, ₽</div>
-        <div class="price-inputs">
-          <input class="price-input" type="number" name="min_price" placeholder="От" value="{{ min_price or '' }}">
-          <span style="color:var(--gray-500)">—</span>
-          <input class="price-input" type="number" name="max_price" placeholder="До" value="{{ max_price or '' }}">
+        <div class="cat-nav-subs">
+          <div class="cat-nav-sub active">Алмазные диски <span class="cat-nav-sub-cnt">176</span></div>
+          <div class="cat-nav-sub">Борфрезы <span class="cat-nav-sub-cnt">68</span></div>
+          <div class="cat-nav-sub">Круги отрезные <span class="cat-nav-sub-cnt">93</span></div>
+          <div class="cat-nav-sub">Шлифовальная шкурка <span class="cat-nav-sub-cnt">142</span></div>
+          <div class="cat-nav-sub">Щётки крацовки <span class="cat-nav-sub-cnt">182</span></div>
         </div>
       </div>
-
-      <div class="sb-section">
-        <div class="sb-title">Наличие</div>
-        <label class="stock-toggle" onclick="toggleStock()">
-          <div class="toggle-track {% if in_stock %}on{% endif %}" id="stockTrack">
-            <div class="toggle-thumb"></div>
+      <div class="cat-nav-group">
+        <div class="cat-nav-head" onclick="toggleCatGroup(this)">
+          <span class="cat-nav-icon">🔧</span>
+          <span class="cat-nav-name">Столярно-слесарный</span>
+          <div class="cat-nav-meta">
+            <span class="cat-nav-cnt">2366</span>
+            <svg class="cat-nav-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
-          <span style="font-size:13px;color:var(--gray-700)">Только в наличии</span>
-        </label>
-        <input type="hidden" name="in_stock" id="stockInput" value="{{ 'true' if in_stock else '' }}">
+        </div>
+        <div class="cat-nav-subs">
+          <div class="cat-nav-sub">Биты <span class="cat-nav-sub-cnt">299</span></div>
+          <div class="cat-nav-sub">Болторезы, кабелерезы <span class="cat-nav-sub-cnt">66</span></div>
+          <div class="cat-nav-sub">Верстаки, тиски <span class="cat-nav-sub-cnt">284</span></div>
+        </div>
       </div>
-
-      <div class="sb-section">
-        <button class="sb-apply" type="submit">Применить фильтры</button>
-        <a href="/catalog"><button class="sb-reset" type="button">Сбросить всё</button></a>
+      <div class="cat-nav-group">
+        <div class="cat-nav-head" onclick="toggleCatGroup(this)">
+          <span class="cat-nav-icon">🔨</span>
+          <span class="cat-nav-name">Свёрла, буры, коронки</span>
+          <div class="cat-nav-meta">
+            <span class="cat-nav-cnt">1858</span>
+            <svg class="cat-nav-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+        <div class="cat-nav-subs">
+          <div class="cat-nav-sub">Буры SDS-Plus <span class="cat-nav-sub-cnt">378</span></div>
+          <div class="cat-nav-sub">Буры SDS-Max <span class="cat-nav-sub-cnt">143</span></div>
+          <div class="cat-nav-sub">Алмазные коронки <span class="cat-nav-sub-cnt">123</span></div>
+          <div class="cat-nav-sub">Свёрла по металлу <span class="cat-nav-sub-cnt">538</span></div>
+        </div>
       </div>
-    </form>
+      <div class="cat-nav-group">
+        <div class="cat-nav-head" onclick="toggleCatGroup(this)">
+          <span class="cat-nav-icon">🦺</span>
+          <span class="cat-nav-name">Средства защиты труда</span>
+          <div class="cat-nav-meta">
+            <span class="cat-nav-cnt">304</span>
+            <svg class="cat-nav-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+        <div class="cat-nav-subs">
+          <div class="cat-nav-sub">Перчатки рабочие <span class="cat-nav-sub-cnt">119</span></div>
+          <div class="cat-nav-sub">Очки, маски <span class="cat-nav-sub-cnt">81</span></div>
+          <div class="cat-nav-sub">Респираторы <span class="cat-nav-sub-cnt">44</span></div>
+        </div>
+      </div>
+    </div>
   </aside>
 
-  <!-- MAIN -->
-  <div class="catalog-main">
+  <!-- CONTENT -->
+  <div class="content-area">
 
-    <!-- Category pills -->
-    <div class="cat-pills">
-      <a href="/catalog"><span class="cat-pill {% if not selected_category %}active{% endif %}">Все товары</span></a>
-      {% for cat in categories %}
-      <a href="/catalog?category={{ cat.slug }}">
-        <span class="cat-pill {% if selected_category == cat.slug %}active{% endif %}">{{ cat.name }}</span>
-      </a>
-      {% endfor %}
+    <!-- Active Filters -->
+    <div class="active-filters-bar">
+      <span class="af-label">Фильтры:</span>
+      <div class="af-tag">Grinda <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+      <div class="af-tag">Kraftool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+      <div class="af-tag">500₽ — 45 000₽ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+      <div class="af-tag">Алмазные диски <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+      <button class="af-clear-all">Сбросить всё</button>
     </div>
 
     <!-- Toolbar -->
-    <div class="catalog-toolbar">
-      <span class="toolbar-title">Каталог</span>
-      <span class="toolbar-count">{{ total }} товаров</span>
-      <div class="toolbar-right">
-        <select class="sort-select">
-          <option>По популярности</option>
-          <option>Сначала дешевле</option>
-          <option>Сначала дороже</option>
-          <option>По новизне</option>
-        </select>
+    <div class="toolbar">
+      <div class="toolbar-count">Найдено: <span id="productCount">184</span> товара</div>
+      <div class="toolbar-sep"></div>
+      <select class="sort-sel" aria-label="Сортировка">
+        <option>По популярности</option>
+        <option>Дешевле</option>
+        <option>Дороже</option>
+        <option>Новинки</option>
+        <option>По скидке</option>
+      </select>
+      <div class="view-toggle">
+        <button class="view-btn active" aria-label="Плитка">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </button>
+        <button class="view-btn" aria-label="Список">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </button>
       </div>
     </div>
 
-    <!-- Active filters -->
-    {% if selected_category or selected_brand or in_stock or min_price or max_price or q %}
-    <div class="active-filters">
-      {% if q %}<span class="filter-tag">Поиск: {{ q }} <a href="/catalog">×</a></span>{% endif %}
-      {% if selected_category %}
-        {% for cat in categories %}{% if cat.slug == selected_category %}
-        <span class="filter-tag">{{ cat.name }} <a href="/catalog">×</a></span>
-        {% endif %}{% endfor %}
-      {% endif %}
-      {% if in_stock %}<span class="filter-tag">В наличии <a href="/catalog">×</a></span>{% endif %}
-      {% if min_price %}<span class="filter-tag">От {{ min_price }} ₽ <a href="/catalog">×</a></span>{% endif %}
-      {% if max_price %}<span class="filter-tag">До {{ max_price }} ₽ <a href="/catalog">×</a></span>{% endif %}
-    </div>
-    {% endif %}
+    <!-- Product Grid -->
+    <div class="product-grid" id="productGrid">
 
-    <!-- Products -->
-    {% if products %}
-    <div class="product-grid">
       {% for p in products %}
       <div class="product-card">
         <div class="pc-img-wrap">
           🔧
           {% if p.old_price %}<span class="pc-disc">-{{ ((1 - p.price/p.old_price)*100)|int }}%</span>{% endif %}
-          {% if p.in_stock %}<span class="pc-badge badge-new" style="display:none"></span>{% endif %}
-          <button class="pc-wish" aria-label="В избранное" onclick="this.classList.toggle('on');event.stopPropagation()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          </button>
+          <button class="pc-wish" aria-label="В избранное"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
         </div>
         <div class="pc-body">
           <div class="pc-brand">{{ p.brand.name if p.brand else '' }}</div>
@@ -265,58 +2001,234 @@
       </div>
       {% endfor %}
     </div>
-    {% else %}
-    <div class="no-products">
-      <h3>Товары не найдены</h3>
-      <p>Попробуйте изменить фильтры или <a href="/catalog">сбросить всё</a></p>
-    </div>
-    {% endif %}
-
   </div>
 </div>
 
+<!-- ─── BRANDS SECTION ─── -->
+<div class="brands-section">
+  <div class="brands-grid-outer">
+    <div class="section-header">
+      <div class="section-title">Бренды в каталоге</div>
+      <div class="section-count">23 производителя</div>
+    </div>
+      {% for b in brands %}
+      <div class="brand-pill">{{ b.name }}</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- ─── ALL FILTERS PANEL ─── -->
+<div class="filters-overlay" id="filtersOverlay" onclick="closeFilters(event)">
+  <div class="filters-panel" id="filtersPanel">
+    <div class="fp-header">
+      <div>
+        <div class="fp-title">Все фильтры</div>
+        <div class="fp-subtitle">Выбрано критериев: 5</div>
+      </div>
+      <button class="fp-close" onclick="closeFilters(null)" aria-label="Закрыть">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="fp-body">
+      <div class="fp-section">
+        <div class="fp-section-title">Производитель</div>
+        <div class="fp-brand-search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+          <input placeholder="Поиск бренда…" type="text">
+        </div>
+        <div class="fp-brands-grid">
+          <div class="fp-brand-item on">Grinda</div>
+          <div class="fp-brand-item on">Kraftool</div>
+          <div class="fp-brand-item">DEXX</div>
+          <div class="fp-brand-item">JCB</div>
+          <div class="fp-brand-item">Stayer</div>
+          <div class="fp-brand-item">Зубр</div>
+          <div class="fp-brand-item">OLFA</div>
+          <div class="fp-brand-item">Raco</div>
+          <div class="fp-brand-item">MIRAX</div>
+        </div>
+      </div>
+      <div class="fp-section">
+        <div class="fp-section-title">Тип товара</div>
+        <div class="fp-chips">
+          <div class="fp-chip on">Алмазные диски</div>
+          <div class="fp-chip">Борфрезы</div>
+          <div class="fp-chip">Щётки крацовки</div>
+          <div class="fp-chip">Шлифовальная шкурка</div>
+          <div class="fp-chip">Полировальные насадки</div>
+          <div class="fp-chip">Тарелки опорные</div>
+          <div class="fp-chip">Фрезы</div>
+          <div class="fp-chip">Круги отрезные</div>
+        </div>
+      </div>
+      <div class="fp-section">
+        <div class="fp-section-title">Назначение</div>
+        <div class="fp-chips">
+          <div class="fp-chip on">По металлу</div>
+          <div class="fp-chip">По дереву</div>
+          <div class="fp-chip">По бетону</div>
+          <div class="fp-chip">Универсальные</div>
+          <div class="fp-chip">По кафелю</div>
+        </div>
+      </div>
+      <div class="fp-section">
+        <div class="fp-section-title">Размер / Диаметр</div>
+        <div class="fp-chips">
+          <div class="fp-chip">115 мм</div>
+          <div class="fp-chip on">125 мм</div>
+          <div class="fp-chip on">150 мм</div>
+          <div class="fp-chip">180 мм</div>
+          <div class="fp-chip">230 мм</div>
+          <div class="fp-chip">300 мм</div>
+        </div>
+      </div>
+      <div class="fp-section">
+        <div class="fp-section-title">Наличие</div>
+        <div class="fp-chips">
+          <div class="fp-chip on">В наличии</div>
+          <div class="fp-chip">Под заказ</div>
+          <div class="fp-chip">Со скидкой</div>
+          <div class="fp-chip">Новинки</div>
+        </div>
+      </div>
+    </div>
+    <div class="fp-footer">
+      <button class="fp-reset" onclick="closeFilters(null)">Сбросить всё</button>
+      <button class="fp-apply" onclick="closeFilters(null)">Показать 184 товара</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="logo-stripes" style="height:26px">
+            <span style="height:13px"></span><span style="height:18px"></span><span style="height:24px"></span>
+          </div>
+          <div class="footer-logo-text">Tool<em>Prime</em></div>
+        </div>
+        <p class="footer-desc">Первоклассный инструмент оптом для профессионалов. Работаем с ИП, прорабами и снабженцами заводов по всей России.</p>
+        <div class="footer-contact">
+          <a href="tel:+79155998079">+7 (915) 599-80-79</a>
+          <a href="mailto:semyon@toolprime.ru" style="font-size:13px;font-weight:500;color:var(--blue-400)">semyon@toolprime.ru</a>
+          <span>Пн–Пт 9:00–18:00 МСК</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Каталог</div>
+        <div class="footer-links">
+          <a href="#">Абразивные материалы</a>
+          <a href="#">Электроинструмент</a>
+          <a href="#">Столярно-слесарный</a>
+          <a href="#">Свёрла и буры</a>
+          <a href="#">Средства защиты</a>
+          <a href="#">Все категории</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Покупателям</div>
+        <div class="footer-links">
+          <a href="#">Оптовые условия</a>
+          <a href="#">Доставка</a>
+          <a href="#">Оплата</a>
+          <a href="#">ЭДО</a>
+          <a href="#">Возврат</a>
+          <a href="#">Контакты</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Компания</div>
+        <div class="footer-links">
+          <a href="#">О нас</a>
+          <a href="#">Новости</a>
+          <a href="#">Вакансии</a>
+          <a href="#">Реквизиты</a>
+          <a href="#">Политика конфиденциальности</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-bottom-text">© 2025 ToolPrime. Все права защищены.</span>
+      <span class="footer-bottom-text">ИП Петров С.И. · ИНН 770000000000</span>
+    </div>
+  </div>
+</footer>
+
 <script>
-var selectedBrands = "{{ selected_brand or '' }}".split(',').filter(Boolean);
-var selectedCategory = "{{ selected_category or '' }}";
-
-function selectCategory(slug) {
-  selectedCategory = selectedCategory === slug ? '' : slug;
-  document.getElementById('categoryInput').value = selectedCategory;
-  document.querySelectorAll('.brand-row').forEach(function(r) {
-    if (!r.dataset.brand) {
-      r.querySelector('.brand-cb').classList.toggle('on', r.getAttribute('onclick').includes("'"+selectedCategory+"'"));
-      r.classList.toggle('selected', r.getAttribute('onclick').includes("'"+selectedCategory+"'"));
-    }
-  });
-}
-
-function toggleBrand(slug, row) {
-  var cb = row.querySelector('.brand-cb');
-  var idx = selectedBrands.indexOf(slug);
-  if (idx === -1) { selectedBrands.push(slug); cb.classList.add('on'); }
-  else { selectedBrands.splice(idx, 1); cb.classList.remove('on'); }
-  document.getElementById('brandInput').value = selectedBrands.join(',');
-}
-
-function filterBrands(q) {
-  var lq = q.toLowerCase();
-  document.querySelectorAll('#brandList .brand-row').forEach(function(r) {
-    r.style.display = r.dataset.brand.toLowerCase().includes(lq) ? '' : 'none';
-  });
-}
-
-var stockOn = {{ 'true' if in_stock else 'false' }};
-function toggleStock() {
-  stockOn = !stockOn;
-  document.getElementById('stockTrack').classList.toggle('on', stockOn);
-  document.getElementById('stockInput').value = stockOn ? 'true' : '';
-}
-
+/* ── CART ── */
+var cartItems = 0;
 function addToCart(btn) {
+  cartItems++;
+  document.getElementById('cartCount').textContent = cartItems;
   btn.textContent = '✓ В корзине';
   btn.classList.add('in-cart');
-  setTimeout(function() { btn.textContent = '+ Купить'; btn.classList.remove('in-cart'); }, 2000);
+  setTimeout(function() {
+    btn.textContent = '+ Купить';
+    btn.classList.remove('in-cart');
+  }, 2000);
 }
+
+/* ── FILTERS PANEL ── */
+function openFilters() {
+  document.getElementById('filtersOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeFilters(e) {
+  if (e === null || e.target === document.getElementById('filtersOverlay')) {
+    document.getElementById('filtersOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+/* ── CATEGORY NAV TOGGLE ── */
+function toggleCatGroup(head) {
+  head.classList.toggle('open');
+}
+
+/* ── BRAND FILTER ── */
+function filterBrands(q) {
+  var rows = document.querySelectorAll('#brandList .brand-row');
+  var lq = q.toLowerCase();
+  rows.forEach(function(row) {
+    var name = row.getAttribute('data-brand').toLowerCase();
+    row.style.display = name.includes(lq) ? '' : 'none';
+  });
+}
+
+/* ── CHECKBOX TOGGLE ── */
+document.querySelectorAll('.brand-row').forEach(function(row) {
+  row.addEventListener('click', function() {
+    var cb = row.querySelector('.brand-cb');
+    cb.classList.toggle('on');
+  });
+});
+
+document.querySelectorAll('.fp-chip, .fp-brand-item').forEach(function(chip) {
+  chip.addEventListener('click', function() {
+    chip.classList.toggle('on');
+  });
+});
+
+document.querySelectorAll('.pc-wish').forEach(function(btn) {
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    btn.classList.toggle('on');
+  });
+});
+
+/* ── RESET ── */
+function resetFilters() {
+  document.querySelectorAll('.brand-cb.on').forEach(function(cb) { cb.classList.remove('on'); });
+}
+
+/* ── ESC ── */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeFilters(null);
+});
 </script>
 </body>
-</html>
+</html>New-Item app\templates\catalog.html

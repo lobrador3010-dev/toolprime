@@ -1,6 +1,11 @@
 ﻿from sqlalchemy import Column, Integer, String, Float, Boolean, ForeignKey, Text
-from sqlalchemy.orm import relationship
-from app.database import Base
+from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy import create_engine
+from pathlib import Path
+
+DATABASE_URL = f"sqlite:///{Path(__file__).parent / 'toolprime.db'}"
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+Base = declarative_base()
 
 class Category(Base):
     __tablename__ = "categories"
