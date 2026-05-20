@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Доставка — ToolPrime</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-900:#0a2247;--blue-800:#0d3068;--blue-600:#1a6bdc;--blue-500:#3a87f0;--blue-400:#60a5fa;
+      --gray-900:#111827;--gray-700:#374151;--gray-500:#6b7280;--gray-300:#d1d5db;--gray-200:#e5e7eb;
+      --gray-100:#f3f4f6;--gray-50:#f9fafb;--white:#fff;--green:#16a34a;--orange:#f97316;
+      --r-md:10px;--r-lg:14px;--r-xl:20px;--max:1000px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Manrope',system-ui,sans-serif;background:var(--gray-100);color:var(--gray-900);font-size:15px;-webkit-font-smoothing:antialiased}
+    a{color:var(--blue-600);text-decoration:none}
+    button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+    /* HEADER */
+    header{background:var(--blue-900);position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(0,0,0,.4)}
+    .hdr{max-width:1400px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:12px}
+    .logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+    .logo-bars{display:flex;align-items:flex-end;gap:3px;height:28px}
+    .logo-bars span{display:block;width:5px;background:var(--blue-400);border-radius:2px}
+    .logo-bars span:nth-child(1){height:14px}
+    .logo-bars span:nth-child(2){height:20px}
+    .logo-bars span:nth-child(3){height:27px}
+    .logo-text{font-size:20px;font-weight:900;color:#fff;letter-spacing:-.04em}
+    .logo-text em{color:var(--blue-400);font-style:normal}
+    .search-box{flex:1;max-width:560px;position:relative}
+    .search-box input{width:100%;height:42px;padding:0 48px 0 14px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.18);border-radius:var(--r-lg);font-size:14px;font-weight:500;color:#fff;outline:none}
+    .search-box input::placeholder{color:rgba(255,255,255,.4)}
+    .search-box button{position:absolute;right:6px;top:5px;width:32px;height:32px;background:var(--blue-600);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff}
+    .cart-btn{display:flex;align-items:center;gap:7px;padding:9px 18px;border-radius:var(--r-md);font-size:13px;font-weight:700;color:#fff;background:var(--blue-600);text-decoration:none;margin-left:auto;white-space:nowrap}
+    .cart-btn:hover{background:var(--blue-500)}
+    .navbar{background:var(--blue-800);border-top:1px solid rgba(255,255,255,.08)}
+    .navbar-inner{max-width:1400px;margin:0 auto;padding:0 20px;display:flex;align-items:stretch}
+    .nav-item{padding:11px 18px;font-size:13px;font-weight:600;color:rgba(255,255,255,.7);border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:6px;text-decoration:none}
+    .nav-item:hover{color:#fff;background:rgba(255,255,255,.06)}
+    .nav-item.active{color:#fff;border-bottom-color:var(--blue-400);background:rgba(255,255,255,.08)}
+
+    /* PAGE */
+    .page{max-width:var(--max);margin:0 auto;padding:40px 20px 60px}
+    .breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gray-500);margin-bottom:32px;flex-wrap:wrap}
+    .breadcrumb a{color:var(--gray-500)}
+    .breadcrumb a:hover{color:var(--blue-600)}
+    .sep{color:var(--gray-300)}
+
+    .page-hero{margin-bottom:40px}
+    .page-hero h1{font-size:36px;font-weight:900;color:var(--gray-900);line-height:1.2;margin-bottom:14px}
+    .page-hero p{font-size:16px;color:var(--gray-500);line-height:1.6}
+
+    /* HIGHLIGHT */
+    .highlight{background:linear-gradient(135deg,#0d3068,#1a6bdc);border-radius:var(--r-xl);padding:36px;margin-bottom:32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+    .hl-icon{width:64px;height:64px;border-radius:var(--r-lg);background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+    .hl-icon svg{width:32px;height:32px}
+    .hl-body h2{font-size:22px;font-weight:900;color:#fff;margin-bottom:6px}
+    .hl-body p{font-size:15px;color:rgba(255,255,255,.8);line-height:1.5}
+    .hl-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:13px;font-weight:700;padding:6px 16px;border-radius:20px;margin-top:12px;display:inline-block}
+
+    /* CONDITIONS TABLE */
+    .conditions{background:var(--white);border-radius:var(--r-xl);border:1px solid var(--gray-200);overflow:hidden;margin-bottom:32px}
+    .conditions-title{padding:20px 24px;font-size:17px;font-weight:800;color:var(--gray-900);border-bottom:1px solid var(--gray-100)}
+    .cond-row{display:flex;align-items:center;gap:16px;padding:18px 24px;border-bottom:1px solid var(--gray-100)}
+    .cond-row:last-child{border-bottom:none}
+    .cond-row:nth-child(even){background:var(--gray-50)}
+    .cond-sum{font-size:18px;font-weight:900;color:var(--gray-900);min-width:160px;flex-shrink:0}
+    .cond-desc{font-size:14px;color:var(--gray-700);line-height:1.5;flex:1}
+    .cond-tag{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;flex-shrink:0;white-space:nowrap}
+    .tag-paid{background:#fef3c7;color:#92400e}
+    .tag-free{background:#d1fae5;color:#065f46}
+
+    /* INFO GRID */
+    .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:32px}
+    .info-card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--gray-200);padding:22px;display:flex;flex-direction:column;gap:10px}
+    .info-icon{font-size:28px}
+    .info-card-title{font-size:14px;font-weight:800;color:var(--gray-900)}
+    .info-card-text{font-size:13px;color:var(--gray-500);line-height:1.6}
+
+    /* CTA */
+    .cta-block{background:var(--blue-900);border-radius:var(--r-xl);padding:36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+    .cta-text h2{font-size:22px;font-weight:800;color:#fff;margin-bottom:6px}
+    .cta-text p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.5}
+    .cta-btn{padding:13px 28px;background:var(--blue-500);color:#fff;border-radius:var(--r-lg);font-size:14px;font-weight:800;white-space:nowrap;transition:background .15s;text-decoration:none}
+    .cta-btn:hover{background:var(--blue-400)}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="hdr">
+    <a href="/" class="logo">
+      <div class="logo-bars"><span></span><span></span><span></span></div>
+      <div class="logo-text">Tool<em>Prime</em></div>
+    </a>
+    <form class="search-box" action="/catalog" method="get">
+      <input name="q" type="text" placeholder="Найти товар..." autocomplete="off">
+      <button type="submit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="15" height="15"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+    </form>
+    <a href="/cart" class="cart-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Корзина
+    </a>
+  </div>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a href="/#catalog" class="nav-item">Каталог</a>
+      <a href="/services" class="nav-item">Услуги</a>
+      <a href="/edo" class="nav-item">ЭДО</a>
+      <a href="/delivery" class="nav-item active">Доставка</a>
+      <a href="/contacts" class="nav-item">Контакты</a>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+  <div class="breadcrumb">
+    <a href="/">Главная</a>
+    <span class="sep">›</span>
+    <span>Доставка</span>
+  </div>
+
+  <div class="page-hero">
+    <h1>Условия доставки</h1>
+    <p>Отправляем по всей России транспортными компаниями. Сборка и отгрузка в день заказа при оплате до 14:00.</p>
+  </div>
+
+  <div class="highlight">
+    <div class="hl-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+    </div>
+    <div class="hl-body">
+      <h2>От 100 000 ₽ — доставка за наш счёт</h2>
+      <p>При заказе на сумму от 100 000 рублей мы полностью берём расходы на доставку по России на себя. Без ограничений по весу и объёму.</p>
+      <span class="hl-badge">🎁 Бесплатная доставка от 100 000 ₽</span>
+    </div>
+  </div>
+
+  <div class="conditions">
+    <div class="conditions-title">Стоимость доставки</div>
+    <div class="cond-row">
+      <div class="cond-sum">До 100 000 ₽</div>
+      <div class="cond-desc">Доставка по тарифам транспортной компании. Стоимость рассчитывается при оформлении заказа исходя из веса, габаритов и региона.</div>
+      <div class="cond-tag tag-paid">По тарифу ТК</div>
+    </div>
+    <div class="cond-row">
+      <div class="cond-sum">От 100 000 ₽</div>
+      <div class="cond-desc">Доставка полностью за счёт ToolPrime. Любой регион, любой вес.</div>
+      <div class="cond-tag tag-free">Бесплатно</div>
+    </div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-icon">🚀</div>
+      <div class="info-card-title">Отгрузка в день заказа</div>
+      <div class="info-card-text">При оплате до 14:00 товар уходит со склада в тот же день.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">📦</div>
+      <div class="info-card-title">Транспортные компании</div>
+      <div class="info-card-text">СДЭК, Деловые Линии, ПЭК, Boxberry и другие — на ваш выбор.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">📍</div>
+      <div class="info-card-title">По всей России</div>
+      <div class="info-card-text">Отправляем во все регионы РФ, включая Сибирь и Дальний Восток.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🏭</div>
+      <div class="info-card-title">Самовывоз</div>
+      <div class="info-card-text">Москва, склад на Варшавском шоссе. Уточняйте адрес у менеджера.</div>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-text">
+      <h2>Остались вопросы по доставке?</h2>
+      <p>Уточним сроки и стоимость для вашего региона — звоните или пишите.</p>
+    </div>
+    <a href="tel:+79155998079" class="cta-btn">+7 (915) 599-80-79</a>
+  </div>
+</div>
+
+</body>
+</html>

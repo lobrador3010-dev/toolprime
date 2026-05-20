@@ -26,3 +26,19 @@ async def home(request: Request, db: Session = Depends(get_db)):
 @app.get("/cart")
 async def cart(request: Request):
     return templates.TemplateResponse(request=request, name="cart.html", context={})
+
+@app.get("/services")
+async def services(request: Request):
+    return templates.TemplateResponse(request=request, name="services.html", context={})
+
+@app.get("/edo")
+async def edo(request: Request):
+    return templates.TemplateResponse(request=request, name="edo.html", context={})
+
+@app.get("/delivery")
+async def delivery(request: Request):
+    return templates.TemplateResponse(request=request, name="delivery.html", context={})
+
+@app.get("/contacts")
+async def contacts(request: Request):
+    return templates.TemplateResponse(request=request, name="contacts.html", context={})

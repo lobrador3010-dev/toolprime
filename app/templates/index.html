@@ -316,6 +316,8 @@ header {
 .nav-item.active { color: #fff; border-bottom-color: var(--blue-400); background: rgba(255,255,255,.08); }
 .nav-item.hot { color: #fbbf24; }
 .nav-item.hot:hover { color: #fde68a; }
+a.nav-item { text-decoration: none; }
+a.btn-primary, a.btn-secondary { text-decoration: none; }
 
 /* ═══════════════════════════════════════
    PROMO RIBBON
@@ -719,6 +721,57 @@ header {
   color: var(--gray-500);
   font-weight: 500;
 }
+
+/* ── cat-card as link ── */
+a.cat-card { text-decoration: none; color: inherit; }
+
+/* ═══════════════════════════════════════
+   POPULAR PRODUCTS SECTION
+═══════════════════════════════════════ */
+.pop-section {
+  max-width: var(--max);
+  margin: 0 auto 40px;
+  padding: 0 20px;
+}
+.pop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+  margin-bottom: 0;
+}
+.pop-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow .2s, transform .2s;
+}
+.pop-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.1); transform: translateY(-2px); }
+.pop-img {
+  aspect-ratio: 1;
+  background: var(--gray-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 52px;
+  border-bottom: 1px solid var(--gray-100);
+  position: relative;
+  overflow: hidden;
+}
+.pop-img img { width:100%; height:100%; object-fit:contain; padding:10px; }
+.pop-disc { position:absolute; top:8px; right:8px; background:var(--red); color:#fff; font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px; }
+.pop-body { padding: 12px; display: flex; flex-direction: column; flex: 1; gap: 4px; }
+.pop-brand { font-size: 10px; font-weight: 800; color: var(--blue-600); text-transform: uppercase; letter-spacing: .05em; }
+.pop-name { font-size: 12px; font-weight: 600; color: var(--gray-900); line-height: 1.4; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 8px; }
+.pop-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: auto; }
+.pop-price { font-size: 15px; font-weight: 900; color: var(--gray-900); }
+.pop-price sub { font-size: 10px; font-weight: 700; }
+.pop-buy { padding: 6px 10px; background: var(--blue-600); color: #fff; border-radius: var(--r-sm); font-size: 11px; font-weight: 800; }
+.pop-card:hover .pop-buy { background: var(--blue-500); }
 
 /* ═══════════════════════════════════════
    MAIN CATALOG LAYOUT
@@ -1514,11 +1567,9 @@ footer {
     <div class="topbar-sep"></div>
     <span>🚚 Доставка по всей России</span>
     <div class="topbar-right">
-      <a href="#">ЭДО</a>
+      <a href="/edo">ЭДО</a>
       <div class="topbar-sep"></div>
       <a href="#">Личный кабинет</a>
-      <div class="topbar-sep"></div>
-      <a href="#">Оптовикам</a>
     </div>
   </div>
 </div>
@@ -1574,17 +1625,14 @@ footer {
   <!-- Nav -->
   <div class="navbar">
     <div class="navbar-inner">
-      <button class="nav-item active">
+      <a href="/catalog" class="nav-item">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
         Каталог
-      </button>
-      <button class="nav-item hot">🔥 Акции</button>
-      <button class="nav-item">Новинки</button>
-      <button class="nav-item">Оптовикам</button>
-      <button class="nav-item">Услуги</button>
-      <button class="nav-item">ЭДО</button>
-      <button class="nav-item">Доставка</button>
-      <button class="nav-item">Контакты</button>
+      </a>
+      <a href="/services" class="nav-item">Услуги</a>
+      <a href="/edo" class="nav-item">ЭДО</a>
+      <a href="/delivery" class="nav-item">Доставка</a>
+      <a href="/contacts" class="nav-item">Контакты</a>
     </div>
   </div>
 </header>
@@ -1620,10 +1668,10 @@ footer {
       </p>
 
       <div class="hero-btns">
-        <button class="btn-primary">
+        <a href="#catalog" class="btn-primary">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
           Открыть каталог
-        </button>
+        </a>
         <button class="btn-secondary">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.29 6.29l.82-.82a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           Позвонить менеджеру
@@ -1795,34 +1843,58 @@ footer {
 </div>
 
 <!-- ─── CATEGORY GRID ─── -->
-<div class="cat-section">
+<div class="cat-section" id="catalog">
   <div class="section-header">
-    <div class="section-title">Популярные категории</div>
-    <div class="section-count">18 разделов</div>
-    <div class="section-link">
-      Все категории
+    <div class="section-title">Категории товаров</div>
+    <div class="section-count">{{ categories|length }} разделов</div>
+    <a href="/catalog" class="section-link">
+      Весь каталог
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-    </div>
+    </a>
   </div>
   <div class="cat-grid">
-    <div class="cat-card"><div class="cat-icon">🔵</div><div class="cat-name">Абразивные материалы</div><div class="cat-count">1 330 товаров</div></div>
-    <div class="cat-card"><div class="cat-icon">🚗</div><div class="cat-name">Автомобильный инструмент</div><div class="cat-count">859 товаров</div></div>
-    <div class="cat-card"><div class="cat-icon">⚡</div><div class="cat-name">Электроинструмент</div><div class="cat-count">2 100+ товаров</div></div>
-    <div class="cat-card"><div class="cat-icon">🔨</div><div class="cat-name">Свёрла, буры, коронки</div><div class="cat-count">1 858 товаров</div></div>
-    <div class="cat-card"><div class="cat-icon">🔧</div><div class="cat-name">Столярно-слесарный</div><div class="cat-count">2 366 товаров</div></div>
-    <div class="cat-card"><div class="cat-icon">📐</div><div class="cat-name">Измерительный инструмент</div><div class="cat-count">540 товаров</div></div>
-    <div class="cat-card"><div class="cat-icon">🦺</div><div class="cat-name">Средства защиты труда</div><div class="cat-count">304 товара</div></div>
-    <div class="cat-card"><div class="cat-icon">🌿</div><div class="cat-name">Садово-огородный</div><div class="cat-count">868 товаров</div></div>
-    <div class="cat-card"><div class="cat-icon">🚿</div><div class="cat-name">Сантехника</div><div class="cat-count">259 товаров</div></div>
-    <div class="cat-card"><div class="cat-icon">🗃️</div><div class="cat-name">Системы хранения</div><div class="cat-count">159 товаров</div></div>
+    {% for cat in categories %}
+    <a href="/catalog?category={{ cat.slug }}" class="cat-card">
+      <div class="cat-icon">🔧</div>
+      <div class="cat-name">{{ cat.name }}</div>
+    </a>
+    {% endfor %}
   </div>
 </div>
 
-<!-- ─── CATALOG WITH FILTERS ─── -->
-<div class="catalog-layout">
+<!-- ─── POPULAR PRODUCTS ─── -->
+<div class="pop-section">
+  <div class="section-header" style="max-width:var(--max);margin:0 auto;padding:0 20px 20px;">
+    <div class="section-title">Популярные товары</div>
+    <a href="/catalog" class="section-link">Весь каталог <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg></a>
+  </div>
+  <div class="pop-grid">
+    {% for p in products %}
+    <a href="/product/{{ p.slug }}" class="pop-card">
+      <div class="pop-img">
+        {% if p.image_url or p.image %}<img src="{{ p.image_url or p.image }}" alt="{{ p.name }}" loading="lazy">{% else %}<span>🔧</span>{% endif %}
+        {% if p.old_price %}<span class="pop-disc">-{{ ((1 - p.price/p.old_price)*100)|int }}%</span>{% endif %}
+      </div>
+      <div class="pop-body">
+        <div class="pop-brand">{{ p.brand.name if p.brand else '' }}</div>
+        <div class="pop-name">{{ p.name }}</div>
+        <div class="pop-foot">
+          <div class="pop-price">{{ "{:,.0f}".format(p.price).replace(',', ' ') }} <sub>₽</sub></div>
+          <div class="pop-buy">+ Купить</div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  <div style="text-align:center;padding:32px 20px 0;">
+    <a href="/catalog" style="display:inline-flex;align-items:center;gap:8px;padding:14px 40px;background:var(--blue-600);color:#fff;border-radius:var(--r-lg);font-size:15px;font-weight:800;text-decoration:none;transition:background .15s;">
+      Открыть полный каталог
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+  </div>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar" id="catalogSidebar">
+  <!-- FAKE SIDEBAR (hidden) -->
+  <aside class="sidebar" id="catalogSidebar" style="display:none">
     <div class="sb-header">
       <span class="sb-header-title">Фильтры</span>
       <button class="sb-reset" onclick="resetFilters()">Сбросить всё</button>
@@ -1943,8 +2015,8 @@ footer {
     </div>
   </aside>
 
-  <!-- CONTENT -->
-  <div class="content-area">
+  <!-- CONTENT (hidden - replaced by pop-grid above) -->
+  <div class="content-area" style="display:none">
 
     <!-- Active Filters -->
     <div class="active-filters-bar">
@@ -2004,19 +2076,6 @@ footer {
   </div>
 </div>
 
-<!-- ─── BRANDS SECTION ─── -->
-<div class="brands-section">
-  <div class="brands-grid-outer">
-    <div class="section-header">
-      <div class="section-title">Бренды в каталоге</div>
-      <div class="section-count">23 производителя</div>
-    </div>
-      {% for b in brands %}
-      <div class="brand-pill">{{ b.name }}</div>
-      {% endfor %}
-    </div>
-  </div>
-</div>
 
 <!-- ─── ALL FILTERS PANEL ─── -->
 <div class="filters-overlay" id="filtersOverlay" onclick="closeFilters(event)">
@@ -2133,9 +2192,9 @@ footer {
         <div class="footer-col-title">Покупателям</div>
         <div class="footer-links">
           <a href="#">Оптовые условия</a>
-          <a href="#">Доставка</a>
+          <a href="/delivery">Доставка</a>
           <a href="#">Оплата</a>
-          <a href="#">ЭДО</a>
+          <a href="/edo">ЭДО</a>
           <a href="#">Возврат</a>
           <a href="#">Контакты</a>
         </div>

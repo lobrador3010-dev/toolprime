@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Услуги — ToolPrime</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-900:#0a2247;--blue-800:#0d3068;--blue-600:#1a6bdc;--blue-500:#3a87f0;--blue-400:#60a5fa;
+      --gray-900:#111827;--gray-700:#374151;--gray-500:#6b7280;--gray-300:#d1d5db;--gray-200:#e5e7eb;
+      --gray-100:#f3f4f6;--gray-50:#f9fafb;--white:#fff;--green:#16a34a;
+      --r-md:10px;--r-lg:14px;--r-xl:20px;--max:1100px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Manrope',system-ui,sans-serif;background:var(--gray-100);color:var(--gray-900);font-size:15px;-webkit-font-smoothing:antialiased}
+    a{color:var(--blue-600);text-decoration:none}
+    button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+    /* HEADER */
+    header{background:var(--blue-900);position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(0,0,0,.4)}
+    .hdr{max-width:1400px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:12px}
+    .logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+    .logo-bars{display:flex;align-items:flex-end;gap:3px;height:28px}
+    .logo-bars span{display:block;width:5px;background:var(--blue-400);border-radius:2px}
+    .logo-bars span:nth-child(1){height:14px}
+    .logo-bars span:nth-child(2){height:20px}
+    .logo-bars span:nth-child(3){height:27px}
+    .logo-text{font-size:20px;font-weight:900;color:#fff;letter-spacing:-.04em}
+    .logo-text em{color:var(--blue-400);font-style:normal}
+    .search-box{flex:1;max-width:560px;position:relative}
+    .search-box input{width:100%;height:42px;padding:0 48px 0 14px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.18);border-radius:var(--r-lg);font-size:14px;font-weight:500;color:#fff;outline:none}
+    .search-box input::placeholder{color:rgba(255,255,255,.4)}
+    .search-box button{position:absolute;right:6px;top:5px;width:32px;height:32px;background:var(--blue-600);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff}
+    .cart-btn{display:flex;align-items:center;gap:7px;padding:9px 18px;border-radius:var(--r-md);font-size:13px;font-weight:700;color:#fff;background:var(--blue-600);text-decoration:none;margin-left:auto;white-space:nowrap}
+    .cart-btn:hover{background:var(--blue-500)}
+    .navbar{background:var(--blue-800);border-top:1px solid rgba(255,255,255,.08)}
+    .navbar-inner{max-width:1400px;margin:0 auto;padding:0 20px;display:flex;align-items:stretch}
+    .nav-item{padding:11px 18px;font-size:13px;font-weight:600;color:rgba(255,255,255,.7);border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:6px;text-decoration:none}
+    .nav-item:hover{color:#fff;background:rgba(255,255,255,.06)}
+    .nav-item.active{color:#fff;border-bottom-color:var(--blue-400);background:rgba(255,255,255,.08)}
+
+    /* PAGE */
+    .page{max-width:var(--max);margin:0 auto;padding:40px 20px 60px}
+    .breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gray-500);margin-bottom:32px;flex-wrap:wrap}
+    .breadcrumb a{color:var(--gray-500)}
+    .breadcrumb a:hover{color:var(--blue-600)}
+    .sep{color:var(--gray-300)}
+
+    /* HERO */
+    .page-hero{margin-bottom:48px}
+    .page-hero h1{font-size:36px;font-weight:900;color:var(--gray-900);line-height:1.2;margin-bottom:14px}
+    .page-hero p{font-size:16px;color:var(--gray-500);line-height:1.6;max-width:600px}
+
+    /* SERVICES */
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:48px}
+    .service-card{background:var(--white);border-radius:var(--r-xl);border:1px solid var(--gray-200);padding:32px;display:flex;flex-direction:column;gap:16px;transition:box-shadow .2s}
+    .service-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.1)}
+    .svc-icon{width:56px;height:56px;border-radius:var(--r-lg);background:var(--blue-600);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+    .svc-icon svg{width:28px;height:28px}
+    .svc-title{font-size:19px;font-weight:800;color:var(--gray-900)}
+    .svc-desc{font-size:14px;color:var(--gray-500);line-height:1.65}
+    .svc-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+    .svc-list li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--gray-700);list-style:none}
+    .svc-list li::before{content:'✓';color:var(--green);font-weight:800;flex-shrink:0;margin-top:1px}
+
+    /* CTA */
+    .cta-block{background:var(--blue-900);border-radius:var(--r-xl);padding:40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+    .cta-text h2{font-size:24px;font-weight:800;color:#fff;margin-bottom:8px}
+    .cta-text p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.6}
+    .cta-btn{padding:14px 32px;background:var(--blue-500);color:#fff;border-radius:var(--r-lg);font-size:15px;font-weight:800;white-space:nowrap;transition:background .15s;text-decoration:none}
+    .cta-btn:hover{background:var(--blue-400)}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="hdr">
+    <a href="/" class="logo">
+      <div class="logo-bars"><span></span><span></span><span></span></div>
+      <div class="logo-text">Tool<em>Prime</em></div>
+    </a>
+    <form class="search-box" action="/catalog" method="get">
+      <input name="q" type="text" placeholder="Найти товар..." autocomplete="off">
+      <button type="submit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="15" height="15"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+    </form>
+    <a href="/cart" class="cart-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Корзина
+    </a>
+  </div>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a href="/#catalog" class="nav-item">Каталог</a>
+      <a href="/services" class="nav-item active">Услуги</a>
+      <a href="/edo" class="nav-item">ЭДО</a>
+      <a href="/delivery" class="nav-item">Доставка</a>
+      <a href="/contacts" class="nav-item">Контакты</a>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+  <div class="breadcrumb">
+    <a href="/">Главная</a>
+    <span class="sep">›</span>
+    <span>Услуги</span>
+  </div>
+
+  <div class="page-hero">
+    <h1>Наши услуги</h1>
+    <p>Мы не просто поставщик инструмента — мы решаем задачи вашего бизнеса комплексно.</p>
+  </div>
+
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="svc-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      </div>
+      <div class="svc-title">Ремонт инструмента</div>
+      <div class="svc-desc">Профессиональный ремонт электрического и пневматического инструмента ведущих брендов. Быстро, с гарантией.</div>
+      <ul class="svc-list">
+        <li>Диагностика бесплатно при сдаче в ремонт</li>
+        <li>Оригинальные запчасти со склада</li>
+        <li>Срок ремонта от 1 рабочего дня</li>
+        <li>Гарантия на выполненные работы — 3 месяца</li>
+        <li>Работаем с юр. лицами, ИП, самозанятыми</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="svc-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </div>
+      <div class="svc-title">Подбор режущего инструмента и расходных материалов</div>
+      <div class="svc-desc">Поможем подобрать оптимальный инструмент и расходники под конкретный материал, станок и задачу — экономите время и деньги.</div>
+      <ul class="svc-list">
+        <li>Подбор дисков, свёрл, фрез, бит под задачу</li>
+        <li>Оптимизация расхода расходных материалов</li>
+        <li>Аналоги по лучшей цене без потери качества</li>
+        <li>Консультация технолога бесплатно</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="svc-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div class="svc-title">Комплексное снабжение малых производств</div>
+      <div class="svc-desc">Берём на себя весь процесс снабжения инструментом и расходными материалами — по особо выгодным условиям для постоянных клиентов.</div>
+      <ul class="svc-list">
+        <li>Персональный менеджер для вашего предприятия</li>
+        <li>Согласованный прайс-лист с фиксированными ценами</li>
+        <li>Периодические поставки по графику</li>
+        <li>Отсрочка платежа для проверенных партнёров</li>
+        <li>Полный пакет документов: счёт, УПД, накладная</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-text">
+      <h2>Обсудим вашу задачу?</h2>
+      <p>Позвоните или напишите — разберёмся и предложим решение.</p>
+    </div>
+    <a href="tel:+79155998079" class="cta-btn">+7 (915) 599-80-79</a>
+  </div>
+</div>
+
+</body>
+</html>

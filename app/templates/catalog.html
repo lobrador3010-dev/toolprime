@@ -85,6 +85,9 @@
     .sb-block:last-child{border-bottom:none}
     .sb-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-500);margin-bottom:10px}
 
+    .sb-back-cat{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--blue-600);font-weight:600;margin-bottom:8px;text-decoration:none}
+    .sb-back-cat:hover{color:var(--blue-500)}
+    .sb-current-cat{font-size:14px;font-weight:800;color:var(--gray-900);margin-bottom:4px}
     /* Категории */
     .cat-tree{display:flex;flex-direction:column;gap:1px}
     .cat-item{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:var(--r-sm);cursor:pointer;transition:background .12s}
@@ -462,6 +465,24 @@
       <!-- Категории -->
       <div class="sb-block">
         <div class="sb-label">Категории</div>
+        {% if cat_obj %}
+          <a href="/catalog" class="sb-back-cat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><polyline points="15 18 9 12 15 6"/></svg>
+            Все категории
+          </a>
+          <div class="sb-current-cat">{{ cat_obj.name }}</div>
+          {% if subcategories %}
+          <div class="cat-tree" style="margin-top:8px">
+            {% for sub in subcategories %}
+            <a href="/catalog?category={{ sub.slug }}{% if selected_brand %}&brand={{ selected_brand }}{% endif %}"
+               class="cat-item {% if selected_category == sub.slug %}active{% endif %}" style="text-decoration:none">
+              <div class="cat-check {% if selected_category == sub.slug %}on{% endif %}"></div>
+              <span class="cat-name">{{ sub.name }}</span>
+            </a>
+            {% endfor %}
+          </div>
+          {% endif %}
+        {% else %}
         <div class="cat-tree">
           {% for cat in categories %}
           <div class="cat-item {% if selected_category == cat.slug %}active{% endif %}"
@@ -471,6 +492,7 @@
           </div>
           {% endfor %}
         </div>
+        {% endif %}
         <input type="hidden" name="category" id="catInput" value="{{ selected_category or '' }}">
       </div>
 

@@ -19,11 +19,19 @@ async def catalog(
     sort: Optional[str] = "popular", page: int = 1,
 ):
     query = db.query(models.Product)
+
+    # Resolve selected category and its children
+    cat_obj = None
+    cat_ids = []
+    subcategories = []
     if category:
         cat_obj = db.query(models.Category).filter(models.Category.slug == category).first()
         if cat_obj:
+            subcategories = sorted(cat_obj.children, key=lambda c: c.name)
             child_ids = [c.id for c in cat_obj.children]
-            query = query.filter(models.Product.category_id.in_([cat_obj.id] + child_ids))
+            cat_ids = [cat_obj.id] + child_ids
+            query = query.filter(models.Product.category_id.in_(cat_ids))
+
     if brand:
         brand_slugs = [b.strip() for b in brand.split(",") if b.strip()]
         query = query.join(models.Brand).filter(models.Brand.slug.in_(brand_slugs))
@@ -44,17 +52,31 @@ async def catalog(
         query = query.order_by(models.Product.id.desc())
     else:
         query = query.order_by(models.Product.id.asc())
+
     total = query.count()
     total_pages = max(1, (total + PAGE_SIZE - 1) // PAGE_SIZE)
     page = max(1, min(page, total_pages))
     products = query.offset((page - 1) * PAGE_SIZE).limit(PAGE_SIZE).all()
+
     categories = db.query(models.Category).filter(models.Category.parent_id == None).order_by(models.Category.name).all()
-    brands_raw = db.query(models.Brand).join(models.Product).distinct().order_by(models.Brand.name).all()
-    price_range = db.query(func.min(models.Product.price), func.max(models.Product.price)).first()
+
+    # Brands: only those present in current filtered scope
+    brand_query = db.query(models.Brand).join(models.Product)
+    if cat_ids:
+        brand_query = brand_query.filter(models.Product.category_id.in_(cat_ids))
+    brands_raw = brand_query.distinct().order_by(models.Brand.name).all()
+
+    # Price range for current category scope
+    pr_query = db.query(func.min(models.Product.price), func.max(models.Product.price))
+    if cat_ids:
+        pr_query = pr_query.filter(models.Product.category_id.in_(cat_ids))
+    price_range = pr_query.first()
     global_min = int(price_range[0] or 0)
     global_max = int(price_range[1] or 100000)
+
     return templates.TemplateResponse(request=request, name="catalog.html", context={
         "products": products, "categories": categories, "brands": brands_raw,
+        "subcategories": subcategories, "cat_obj": cat_obj,
         "total": total, "total_pages": total_pages, "page": page, "page_size": PAGE_SIZE,
         "selected_category": category, "selected_brand": brand, "in_stock": in_stock,
         "min_price": min_price, "max_price": max_price, "q": q, "sort": sort,
