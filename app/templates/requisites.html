@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %}Реквизиты — ToolPrime{% endblock %}
+{% block extra_head %}
+<style>
+  .page{max-width:800px}
+  .req-card{background:#fff;border-radius:var(--r-xl);border:1px solid var(--gray-200);overflow:hidden;margin-bottom:32px}
+  .req-card-title{padding:20px 28px;font-size:17px;font-weight:800;color:var(--gray-900);background:var(--gray-50);border-bottom:1px solid var(--gray-200);display:flex;align-items:center;gap:10px}
+  .req-card-title svg{width:20px;height:20px;color:var(--blue-600)}
+  .req-row{display:flex;align-items:baseline;gap:16px;padding:14px 28px;border-bottom:1px solid var(--gray-100)}
+  .req-row:last-child{border-bottom:none}
+  .req-row:nth-child(even){background:var(--gray-50)}
+  .req-key{font-size:13px;color:var(--gray-500);font-weight:600;min-width:210px;flex-shrink:0}
+  .req-val{font-size:14px;color:var(--gray-900);font-weight:700;word-break:break-all}
+  .copy-btn{margin-left:auto;padding:3px 10px;background:var(--blue-50);border:1px solid var(--blue-200);border-radius:var(--r-sm);font-size:11px;font-weight:700;color:var(--blue-600);cursor:pointer;flex-shrink:0;transition:background .15s}
+  .copy-btn:hover{background:var(--blue-100)}
+  .copy-btn.copied{background:var(--green);border-color:var(--green);color:#fff}
+  @media(max-width:560px){
+    .req-row{flex-wrap:wrap;gap:4px}
+    .req-key{min-width:unset;width:100%;font-size:12px}
+  }
+</style>
+{% endblock %}
+{% block content %}
+<div class="page">
+  <div class="breadcrumb">
+    <a href="/">Главная</a><span class="sep">›</span><span>Реквизиты</span>
+  </div>
+  <div class="page-hero">
+    <h1>Реквизиты</h1>
+    <p>Данные для оформления документов, договоров и платёжных поручений.</p>
+  </div>
+
+  <div class="req-card">
+    <div class="req-card-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Основные сведения
+    </div>
+    <div class="req-row">
+      <div class="req-key">Наименование</div>
+      <div class="req-val">ИП Панюшова Диана Дмитриевна</div>
+    </div>
+    <div class="req-row">
+      <div class="req-key">ИНН</div>
+      <div class="req-val">622908824414</div>
+      <button class="copy-btn" onclick="copyVal(this,'622908824414')">Копировать</button>
+    </div>
+    <div class="req-row">
+      <div class="req-key">ОГРНИП</div>
+      <div class="req-val">326620000013420</div>
+      <button class="copy-btn" onclick="copyVal(this,'326620000013420')">Копировать</button>
+    </div>
+    <div class="req-row">
+      <div class="req-key">Юридический адрес</div>
+      <div class="req-val">391112, Россия, Рязанская обл., Рыбновский р-н, г. Рыбное, ул. Крымская, д. 15, кв. 77</div>
+    </div>
+    <div class="req-row">
+      <div class="req-key">Телефон</div>
+      <div class="req-val"><a href="tel:+79155998079">+7 (915) 599-80-79</a></div>
+    </div>
+  </div>
+
+  <div class="req-card">
+    <div class="req-card-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      Банковские реквизиты
+    </div>
+    <div class="req-row">
+      <div class="req-key">Расчётный счёт</div>
+      <div class="req-val">40802810700009464050</div>
+      <button class="copy-btn" onclick="copyVal(this,'40802810700009464050')">Копировать</button>
+    </div>
+    <div class="req-row">
+      <div class="req-key">Банк</div>
+      <div class="req-val">АО «ТБанк»</div>
+    </div>
+    <div class="req-row">
+      <div class="req-key">ИНН банка</div>
+      <div class="req-val">7710140679</div>
+    </div>
+    <div class="req-row">
+      <div class="req-key">БИК</div>
+      <div class="req-val">044525974</div>
+      <button class="copy-btn" onclick="copyVal(this,'044525974')">Копировать</button>
+    </div>
+    <div class="req-row">
+      <div class="req-key">Корреспондентский счёт</div>
+      <div class="req-val">30101810145250000974</div>
+      <button class="copy-btn" onclick="copyVal(this,'30101810145250000974')">Копировать</button>
+    </div>
+    <div class="req-row">
+      <div class="req-key">Юридический адрес банка</div>
+      <div class="req-val">127287, г. Москва, ул. Хуторская 2-я, д. 38А, стр. 26</div>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-text">
+      <h2>Нужны документы?</h2>
+      <p>Счёт, договор или карточка ИП — напишите, пришлём в удобном формате.</p>
+    </div>
+    <div class="cta-phones">
+      <a href="mailto:semyon@toolprime.ru" class="cta-btn">semyon@toolprime.ru</a>
+      <a href="tel:+79155998079" class="cta-btn" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3)">+7 (915) 599-80-79</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+function copyVal(btn, text) {
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = 'Скопировано';
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = 'Копировать'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+{% endblock %}

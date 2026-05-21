@@ -1632,6 +1632,7 @@ footer {
       <a href="/services" class="nav-item">Услуги</a>
       <a href="/edo" class="nav-item">ЭДО</a>
       <a href="/delivery" class="nav-item">Доставка</a>
+      <a href="/about" class="nav-item">О нас</a>
       <a href="/contacts" class="nav-item">Контакты</a>
     </div>
   </div>
@@ -1668,7 +1669,7 @@ footer {
       </p>
 
       <div class="hero-btns">
-        <a href="#catalog" class="btn-primary">
+        <a href="/catalog" class="btn-primary">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
           Открыть каталог
         </a>
@@ -1862,8 +1863,8 @@ footer {
   </div>
 </div>
 
-<!-- ─── POPULAR PRODUCTS ─── -->
-<div class="pop-section">
+<!-- pop-section removed -->
+<div class="pop-section" style="display:none">
   <div class="section-header" style="max-width:var(--max);margin:0 auto;padding:0 20px 20px;">
     <div class="section-title">Популярные товары</div>
     <a href="/catalog" class="section-link">Весь каталог <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg></a>
@@ -2077,8 +2078,8 @@ footer {
 </div>
 
 
-<!-- ─── ALL FILTERS PANEL ─── -->
-<div class="filters-overlay" id="filtersOverlay" onclick="closeFilters(event)">
+<!-- ─── ALL FILTERS PANEL (hidden) ─── -->
+<div class="filters-overlay" id="filtersOverlay" onclick="closeFilters(event)" style="display:none">
   <div class="filters-panel" id="filtersPanel">
     <div class="fp-header">
       <div>
@@ -2202,17 +2203,15 @@ footer {
       <div>
         <div class="footer-col-title">Компания</div>
         <div class="footer-links">
-          <a href="#">О нас</a>
-          <a href="#">Новости</a>
-          <a href="#">Вакансии</a>
-          <a href="#">Реквизиты</a>
-          <a href="#">Политика конфиденциальности</a>
+          <a href="/about">О нас</a>
+          <a href="/requisites">Реквизиты</a>
+          <a href="/contacts">Контакты</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
       <span class="footer-bottom-text">© 2025 ToolPrime. Все права защищены.</span>
-      <span class="footer-bottom-text">ИП Петров С.И. · ИНН 770000000000</span>
+      <span class="footer-bottom-text">ИП Панюшова Д.Д. · ИНН 622908824414</span>
     </div>
   </div>
 </footer>

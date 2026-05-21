@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% block title %}О нас — ToolPrime{% endblock %}
+{% block extra_head %}
+<style>
+  .page{max-width:1100px}
+
+  /* Stats strip */
+  .stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gray-200);border-radius:var(--r-xl);overflow:hidden;margin-bottom:48px}
+  .stat-tile{background:#fff;padding:28px 24px;display:flex;flex-direction:column;gap:6px}
+  .stat-num{font-size:36px;font-weight:900;color:var(--blue-600);line-height:1}
+  .stat-label{font-size:13px;color:var(--gray-500);font-weight:500}
+
+  /* About content */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:48px;align-items:start}
+  .about-text h2{font-size:26px;font-weight:900;color:var(--gray-900);margin-bottom:16px}
+  .about-text p{font-size:15px;color:var(--gray-700);line-height:1.7;margin-bottom:14px}
+
+  /* Values */
+  .values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-bottom:48px}
+  .value-card{background:#fff;border-radius:var(--r-xl);border:1px solid var(--gray-200);padding:28px;display:flex;flex-direction:column;gap:12px}
+  .value-icon{width:48px;height:48px;border-radius:var(--r-lg);background:var(--blue-50);display:flex;align-items:center;justify-content:center;color:var(--blue-600)}
+  .value-icon svg{width:24px;height:24px}
+  .value-title{font-size:16px;font-weight:800;color:var(--gray-900)}
+  .value-text{font-size:13px;color:var(--gray-500);line-height:1.6}
+
+  /* Team preview */
+  .section-title{font-size:22px;font-weight:900;color:var(--gray-900);margin-bottom:24px}
+
+  @media(max-width:768px){
+    .about-grid{grid-template-columns:1fr}
+    .stats-strip{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:480px){
+    .stats-strip{grid-template-columns:1fr 1fr}
+    .stat-num{font-size:28px}
+  }
+</style>
+{% endblock %}
+{% block content %}
+<div class="page">
+  <div class="breadcrumb">
+    <a href="/">Главная</a><span class="sep">›</span><span>О нас</span>
+  </div>
+  <div class="page-hero">
+    <h1>О компании ToolPrime</h1>
+    <p>Оптовый поставщик профессионального инструмента для строительного рынка России. Работаем с 2019 года.</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-strip">
+    <div class="stat-tile">
+      <div class="stat-num">15 000+</div>
+      <div class="stat-label">товаров в наличии</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-num">5+</div>
+      <div class="stat-label">лет на рынке</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-num">4 700+</div>
+      <div class="stat-label">выполненных заказов</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">официальные поставки</div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="about-grid">
+    <div class="about-text">
+      <h2>Кто мы</h2>
+      <p>ToolPrime — оптовый поставщик профессионального ручного и электроинструмента, расходных материалов и средств защиты труда. Мы работаем напрямую с производителями и крупными дистрибьюторами, что позволяет предлагать оптовые цены без розничных наценок.</p>
+      <p>Наши клиенты — прорабы и строительные бригады, ИП и малый бизнес, снабженцы заводов и промышленных предприятий, строительные компании и розничные магазины инструментов.</p>
+      <p>Отгружаем в день заказа при оплате до 14:00. Доставляем по всей России — СДЭК, Деловые Линии, ПЭК. При заказе от 100 000 ₽ доставка бесплатна.</p>
+    </div>
+    <div class="about-text">
+      <h2>Как мы работаем</h2>
+      <p>Каждый клиент получает персонального менеджера, который помогает подобрать инструмент, рассчитать стоимость заказа и оперативно отвечает на вопросы в WhatsApp и по телефону.</p>
+      <p>Полный пакет документов: счёт-фактура, УПД, товарная накладная. Работаем по ЭДО через оператора СБИС — документы в день отгрузки.</p>
+      <p>Для постоянных клиентов — отсрочка платежа, согласованный прайс-лист и дополнительные скидки за объём.</p>
+    </div>
+  </div>
+
+  <!-- Values -->
+  <div class="section-title">Наши принципы</div>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div class="value-title">Честные оптовые цены</div>
+      <div class="value-text">Работаем без розничной наценки. Цены ниже рекомендованных производителем от 1 упаковки.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="value-title">Только оригинальный товар</div>
+      <div class="value-text">Официальные поставки от производителей и авторизованных дистрибьюторов. Гарантия на весь ассортимент.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      </div>
+      <div class="value-title">Быстрая отгрузка</div>
+      <div class="value-text">Отправляем в день заказа при оплате до 14:00. Доставка 1–3 рабочих дня по России.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="value-title">Персональный подход</div>
+      <div class="value-text">Свой менеджер для каждого клиента. Быстрый ответ в WhatsApp, подбор и расчёт за минуты.</div>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-text">
+      <h2>Хотите стать нашим клиентом?</h2>
+      <p>Позвоните или напишите — расскажем об условиях работы и подберём товар под вашу задачу.</p>
+    </div>
+    <div class="cta-phones">
+      <a href="tel:+79155998079" class="cta-btn">+7 (915) 599-80-79</a>
+      <a href="/contacts" class="cta-btn" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3)">Наша команда</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

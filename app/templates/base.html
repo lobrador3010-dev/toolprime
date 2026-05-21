@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>{% block title %}ToolPrime — Инструмент оптом{% endblock %}</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue-950:#05152e;--blue-900:#0a2247;--blue-800:#0d3068;
+  --blue-700:#1148a0;--blue-600:#1a6bdc;--blue-500:#3a87f0;
+  --blue-400:#60a5fa;--blue-200:#bfdbfe;--blue-100:#dbeafe;--blue-50:#eff6ff;
+  --gray-950:#0c0f14;--gray-900:#111827;--gray-800:#1f2937;
+  --gray-700:#374151;--gray-500:#6b7280;--gray-400:#9ca3af;
+  --gray-300:#d1d5db;--gray-200:#e5e7eb;--gray-100:#f3f4f6;--gray-50:#f9fafb;
+  --white:#ffffff;--orange:#f97316;--green:#16a34a;--red:#dc2626;
+  --r-sm:6px;--r-md:10px;--r-lg:14px;--r-xl:20px;
+  --max:1400px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Manrope',system-ui,sans-serif;background:var(--gray-100);color:var(--gray-900);min-height:100vh;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--blue-600);text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+input,select,textarea{font-family:inherit}
+img{display:block;max-width:100%}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--blue-950);color:rgba(255,255,255,.6);font-size:12px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.topbar-inner{max-width:var(--max);margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.topbar a{color:rgba(255,255,255,.55);transition:color .15s}
+.topbar a:hover{color:#fff}
+.topbar-sep{width:1px;height:12px;background:rgba(255,255,255,.15)}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:16px}
+
+/* ── HEADER ── */
+.site-header{background:var(--blue-900);position:sticky;top:0;z-index:300;box-shadow:0 4px 24px rgba(0,0,0,.35)}
+.header-main{max-width:var(--max);margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px}
+
+.logo-wrap{display:flex;align-items:center;gap:10px;flex-shrink:0;text-decoration:none}
+.logo-stripes{display:flex;align-items:flex-end;gap:3px;height:32px}
+.logo-stripes span{display:block;width:6px;background:var(--blue-500);border-radius:2px}
+.logo-stripes span:nth-child(1){height:16px}
+.logo-stripes span:nth-child(2){height:22px}
+.logo-stripes span:nth-child(3){height:30px}
+.logo-text{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1}
+.logo-text em{color:var(--blue-400);font-style:normal}
+.logo-sub{font-size:10px;font-weight:500;color:rgba(255,255,255,.4);letter-spacing:.03em;text-transform:uppercase;margin-top:2px}
+
+.search-wrap{flex:1;max-width:560px;position:relative}
+.search-wrap input{width:100%;height:44px;padding:0 50px 0 16px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.15);border-radius:var(--r-lg);font-size:14px;font-weight:500;color:#fff;outline:none;transition:all .2s}
+.search-wrap input::placeholder{color:rgba(255,255,255,.38)}
+.search-wrap input:focus{background:rgba(255,255,255,.16);border-color:var(--blue-400)}
+.search-btn{position:absolute;right:6px;top:6px;width:32px;height:32px;background:var(--blue-600);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;transition:background .15s}
+.search-btn:hover{background:var(--blue-500)}
+.search-btn svg{width:16px;height:16px}
+
+.header-actions{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.hdr-contact{text-align:right;margin-right:4px}
+.hdr-phone{font-size:15px;font-weight:800;color:#fff;letter-spacing:-.01em;line-height:1.2}
+.hdr-phone a{color:#fff}
+.hdr-hours{font-size:11px;color:rgba(255,255,255,.4);font-weight:500}
+.hdr-action-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:var(--r-md);color:rgba(255,255,255,.75);font-size:11px;font-weight:600;letter-spacing:.01em;transition:all .15s;white-space:nowrap;cursor:pointer}
+.hdr-action-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.hdr-action-btn svg{width:20px;height:20px}
+.hdr-cart-btn{display:flex;align-items:center;gap:8px;padding:10px 20px;background:var(--blue-600);border-radius:var(--r-md);color:#fff;font-size:14px;font-weight:700;transition:background .15s;text-decoration:none;white-space:nowrap}
+.hdr-cart-btn:hover{background:var(--blue-500)}
+.hdr-cart-btn svg{width:20px;height:20px}
+.cart-count{background:var(--orange);border-radius:20px;padding:0 7px;font-size:12px;font-weight:800;min-width:20px;text-align:center}
+
+/* ── NAVBAR ── */
+.navbar{background:var(--blue-800);border-top:1px solid rgba(255,255,255,.08)}
+.navbar-inner{max-width:var(--max);margin:0 auto;padding:0 20px;display:flex;align-items:stretch}
+.nav-item{padding:11px 18px;font-size:13px;font-weight:600;color:rgba(255,255,255,.7);border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:6px;text-decoration:none}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav-item.active{color:#fff;border-bottom-color:var(--blue-400);background:rgba(255,255,255,.08)}
+
+/* ── PAGE SHELL ── */
+.page{max-width:1100px;margin:0 auto;padding:40px 20px 60px}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gray-500);margin-bottom:32px;flex-wrap:wrap}
+.breadcrumb a{color:var(--gray-500)}
+.breadcrumb a:hover{color:var(--blue-600)}
+.breadcrumb .sep{color:var(--gray-300)}
+.page-hero{margin-bottom:40px}
+.page-hero h1{font-size:36px;font-weight:900;color:var(--gray-900);line-height:1.2;margin-bottom:12px}
+.page-hero p{font-size:16px;color:var(--gray-500);line-height:1.6}
+
+/* ── FOOTER ── */
+footer{background:var(--blue-950);color:rgba(255,255,255,.7);margin-top:60px;padding:48px 0 0}
+.footer-inner{max-width:var(--max);margin:0 auto;padding:0 20px}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.08)}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.footer-logo-text{font-size:20px;font-weight:900;color:#fff;letter-spacing:-.03em}
+.footer-logo-text em{color:var(--blue-400);font-style:normal}
+.footer-desc{font-size:13px;line-height:1.6;color:rgba(255,255,255,.5);margin-bottom:20px}
+.footer-contact{display:flex;flex-direction:column;gap:6px}
+.footer-contact a{color:rgba(255,255,255,.8);font-size:15px;font-weight:700}
+.footer-contact a:hover{color:#fff}
+.footer-contact span{font-size:12px;color:rgba(255,255,255,.4)}
+.footer-col-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:16px}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.6);transition:color .15s}
+.footer-links a:hover{color:#fff}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding:16px 0;flex-wrap:wrap;gap:8px}
+.footer-bottom-text{font-size:12px;color:rgba(255,255,255,.35)}
+
+/* ── CTA common ── */
+.cta-block{background:var(--blue-900);border-radius:var(--r-xl);padding:36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.cta-text h2{font-size:22px;font-weight:800;color:#fff;margin-bottom:6px}
+.cta-text p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.5}
+.cta-btn{padding:13px 28px;background:var(--blue-500);color:#fff;border-radius:var(--r-lg);font-size:14px;font-weight:800;white-space:nowrap;transition:background .15s;text-decoration:none;display:inline-block}
+.cta-btn:hover{background:var(--blue-400)}
+.cta-phones{display:flex;gap:12px;flex-wrap:wrap}
+
+@media(max-width:900px){
+  .topbar{display:none}
+  .hdr-contact{display:none}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .hdr-action-btn{display:none}
+  .footer-top{grid-template-columns:1fr}
+}
+</style>
+{% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<!-- ─── TOPBAR ─── -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="#">toolprime.ru</a>
+    <div class="topbar-sep"></div>
+    <a href="mailto:semyon@toolprime.ru">semyon@toolprime.ru</a>
+    <div class="topbar-sep"></div>
+    <span>Работаем с ИП и юр. лицами</span>
+    <div class="topbar-sep"></div>
+    <span>🚚 Доставка по всей России</span>
+    <div class="topbar-right">
+      <a href="/edo">ЭДО</a>
+      <div class="topbar-sep"></div>
+      <a href="#">Личный кабинет</a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── HEADER ─── -->
+<header class="site-header">
+  <form class="header-main" action="/catalog" method="get">
+    <a href="/" class="logo-wrap">
+      <div class="logo-stripes"><span></span><span></span><span></span></div>
+      <div>
+        <div class="logo-text">Tool<em>Prime</em></div>
+        <div class="logo-sub">Инструмент оптом</div>
+      </div>
+    </a>
+    <div class="search-wrap">
+      <input name="q" type="text" placeholder="Найти перфоратор, диски, биты…" autocomplete="off">
+      <button class="search-btn" type="submit" aria-label="Поиск">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+    </div>
+    <div class="header-actions">
+      <div class="hdr-contact">
+        <div class="hdr-phone"><a href="tel:+79155998079">+7 (915) 599-80-79</a></div>
+        <div class="hdr-hours">Пн–Пт 9:00–18:00</div>
+      </div>
+      <button type="button" class="hdr-action-btn" aria-label="Избранное">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Избранное
+      </button>
+      <button type="button" class="hdr-action-btn" aria-label="Сравнение">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Сравнение
+      </button>
+      <a href="/cart" class="hdr-cart-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Корзина
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+    </div>
+  </form>
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="/catalog" class="nav-item{% if active_page == 'catalog' %} active{% endif %}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Каталог
+      </a>
+      <a href="/services" class="nav-item{% if active_page == 'services' %} active{% endif %}">Услуги</a>
+      <a href="/edo" class="nav-item{% if active_page == 'edo' %} active{% endif %}">ЭДО</a>
+      <a href="/delivery" class="nav-item{% if active_page == 'delivery' %} active{% endif %}">Доставка</a>
+      <a href="/about" class="nav-item{% if active_page == 'about' %} active{% endif %}">О нас</a>
+      <a href="/contacts" class="nav-item{% if active_page == 'contacts' %} active{% endif %}">Контакты</a>
+    </div>
+  </nav>
+</header>
+
+{% block content %}{% endblock %}
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <div class="logo-stripes" style="height:26px">
+            <span style="height:13px"></span><span style="height:18px"></span><span style="height:24px"></span>
+          </div>
+          <div class="footer-logo-text">Tool<em>Prime</em></div>
+        </div>
+        <p class="footer-desc">Первоклассный инструмент оптом для профессионалов. Работаем с ИП, прорабами и снабженцами заводов по всей России.</p>
+        <div class="footer-contact">
+          <a href="tel:+79155998079">+7 (915) 599-80-79</a>
+          <a href="mailto:semyon@toolprime.ru" style="font-size:13px;font-weight:500;color:var(--blue-400)">semyon@toolprime.ru</a>
+          <span>Пн–Пт 9:00–18:00 МСК</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Каталог</div>
+        <div class="footer-links">
+          <a href="/catalog?category=elektroinstrument">Электроинструмент</a>
+          <a href="/catalog?category=raskhodniki-dlya-elektroinstrumenta">Расходники</a>
+          <a href="/catalog?category=stolyarno-slesarnyy-instrument">Столярно-слесарный</a>
+          <a href="/catalog?category=sredstva-zashchity-truda">Средства защиты</a>
+          <a href="/catalog">Все категории</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Покупателям</div>
+        <div class="footer-links">
+          <a href="/delivery">Доставка</a>
+          <a href="/edo">ЭДО</a>
+          <a href="/services">Услуги</a>
+          <a href="/contacts">Контакты</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Компания</div>
+        <div class="footer-links">
+          <a href="/about">О нас</a>
+          <a href="/requisites">Реквизиты</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-bottom-text">© 2025 ToolPrime. Все права защищены.</span>
+      <span class="footer-bottom-text">ИП Панюшова Д.Д. · ИНН 622908824414</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+{% block extra_js %}{% endblock %}
+</script>
+</body>
+</html>

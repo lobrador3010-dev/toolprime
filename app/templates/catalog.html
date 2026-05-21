@@ -59,6 +59,10 @@
     .search-box button svg{width:15px;height:15px}
 
     .hdr-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+    .hdr-contact{text-align:right;margin-right:4px}
+    .hdr-phone{font-size:14px;font-weight:800;color:#fff;line-height:1.2}
+    .hdr-phone a{color:#fff}
+    .hdr-hours{font-size:10px;color:rgba(255,255,255,.4);font-weight:500}
     .hdr-btn{
       display:flex;align-items:center;gap:7px;padding:9px 18px;
       border-radius:var(--r-md);font-size:13px;font-weight:700;color:#fff;
@@ -69,12 +73,19 @@
     .hdr-btn.accent{background:var(--blue-600);border-color:var(--blue-600)}
     .hdr-btn.accent:hover{background:var(--blue-500)}
     .hdr-btn svg{width:17px;height:17px}
+    .cart-count{background:var(--orange);border-radius:20px;padding:0 7px;font-size:12px;font-weight:800;min-width:20px;text-align:center}
+    /* NAVBAR */
+    .navbar{background:var(--blue-800);border-top:1px solid rgba(255,255,255,.08)}
+    .navbar-inner{max-width:var(--max);margin:0 auto;padding:0 20px;display:flex;align-items:stretch}
+    .nav-item{padding:10px 16px;font-size:13px;font-weight:600;color:rgba(255,255,255,.7);border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:6px;text-decoration:none}
+    .nav-item:hover{color:#fff;background:rgba(255,255,255,.06)}
+    .nav-item.active{color:#fff;border-bottom-color:var(--blue-400);background:rgba(255,255,255,.08)}
 
     /* ════════════════ LAYOUT ════════════════ */
     .page{max-width:var(--max);margin:0 auto;padding:18px 20px;display:flex;gap:18px;align-items:flex-start}
 
     /* ════════════════ SIDEBAR ════════════════ */
-    .sidebar{width:var(--sidebar);flex-shrink:0;position:sticky;top:72px;max-height:calc(100vh - 90px);overflow-y:auto;
+    .sidebar{width:var(--sidebar);flex-shrink:0;position:sticky;top:114px;max-height:calc(100vh - 132px);overflow-y:auto;
       background:var(--white);border-radius:var(--r-lg);border:1px solid var(--gray-200);
       scrollbar-width:thin;scrollbar-color:var(--gray-300) transparent;
     }
@@ -441,16 +452,33 @@
       </button>
     </form>
     <div class="hdr-right">
+      <div class="hdr-contact">
+        <div class="hdr-phone"><a href="tel:+79155998079">+7 (915) 599-80-79</a></div>
+        <div class="hdr-hours">Пн–Пт 9:00–18:00</div>
+      </div>
       <a href="#" class="hdr-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         <span>Избранное</span>
       </a>
       <a href="/cart" class="hdr-btn accent">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-        <span>Корзина</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Корзина <span class="cart-count" id="cartCount">0</span>
       </a>
     </div>
   </div>
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="/catalog" class="nav-item active">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Каталог
+      </a>
+      <a href="/services" class="nav-item">Услуги</a>
+      <a href="/edo" class="nav-item">ЭДО</a>
+      <a href="/delivery" class="nav-item">Доставка</a>
+      <a href="/about" class="nav-item">О нас</a>
+      <a href="/contacts" class="nav-item">Контакты</a>
+    </div>
+  </nav>
 </header>
 
 <!-- ══════════════════════ PAGE ══════════════════════ -->
